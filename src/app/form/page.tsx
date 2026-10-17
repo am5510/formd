@@ -399,20 +399,20 @@ export default function FormPage() {
   const handleCloseTab = () => {
     // 1. พยายามปิดแท็บ/หน้าต่างเบราว์เซอร์ทันที
     try {
-      window.opener = null;
+      window.close();
+    } catch (e) {
+      // ignore
+    }
+
+    // 2. เผื่อบางเบราว์เซอร์ที่รองรับ window.open self
+    try {
       window.open("", "_self");
       window.close();
     } catch (e) {
       // ignore
     }
 
-    try {
-      window.close();
-    } catch (e) {
-      // ignore
-    }
-
-    // 2. สำหรับ in-app browser เช่น LINE, WeChat
+    // 3. สำหรับ in-app browser เช่น LINE, WeChat
     try {
       // @ts-expect-error WeixinJSBridge
       if (typeof window !== "undefined" && window.WeixinJSBridge) {
@@ -422,18 +422,6 @@ export default function FormPage() {
     } catch (e) {
       // ignore
     }
-
-    // 3. หากเบราว์เซอร์บล็อกการปิดแท็บด้วยสคริปต์ (เช่น เปิดแท็บมาตรงๆ)
-    // ให้นำผู้ใช้กลับสู่หน้าหลัก แทนการเปิดหน้าว่าง about:blank
-    setTimeout(() => {
-      try {
-        if (!window.closed) {
-          window.location.href = "/";
-        }
-      } catch (e) {
-        window.location.href = "/";
-      }
-    }, 200);
   };
 
   // สร้างรายการหมวดหมู่ตามข้อคำถามจริงของแบบสอบถามชุดนี้ (รองรับการปรับแต่งอิสระ)

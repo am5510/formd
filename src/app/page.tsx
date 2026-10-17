@@ -9,6 +9,7 @@ export default function HomePage() {
         {/* Card 1: Form (คลิกเพื่อเปิดหน้ารวมแบบสอบถามทั้งหมด) */}
         <Link
           href="/form"
+          target="_blank"
           className="bg-surface-container-lowest border border-outline-variant hover:border-secondary rounded-2xl p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group cursor-pointer"
         >
           <div>
