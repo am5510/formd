@@ -397,33 +397,43 @@ export default function FormPage() {
   };
 
   const handleCloseTab = () => {
-    // 1. พยายามปิดแท็บ/หน้าต่างเบราว์เซอร์
+    // 1. พยายามปิดแท็บ/หน้าต่างเบราว์เซอร์ทันที
+    try {
+      window.opener = null;
+      window.open("", "_self");
+      window.close();
+    } catch (e) {
+      // ignore
+    }
+
     try {
       window.close();
     } catch (e) {
       // ignore
     }
 
-    // 2. เผื่อเบราว์เซอร์บล็อก window.close() สำหรับแท็บที่ไม่ได้เปิดด้วย script
+    // 2. สำหรับ in-app browser เช่น LINE, WeChat
+    try {
+      // @ts-expect-error WeixinJSBridge
+      if (typeof window !== "undefined" && window.WeixinJSBridge) {
+        // @ts-expect-error WeixinJSBridge
+        window.WeixinJSBridge.call("closeWindow");
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    // 3. หากเบราว์เซอร์บล็อกการปิดแท็บด้วยสคริปต์ (เช่น เปิดแท็บมาตรงๆ)
+    // ให้นำผู้ใช้กลับสู่หน้าหลัก แทนการเปิดหน้าว่าง about:blank
     setTimeout(() => {
       try {
-        window.open("", "_self");
-        window.close();
-      } catch (e) {
-        // ignore
-      }
-
-      // 3. ถ้ายังไม่ปิด ให้ redirect ออกไปหน้าว่าง (about:blank)
-      setTimeout(() => {
-        try {
-          if (!window.closed) {
-            window.location.href = "about:blank";
-          }
-        } catch (e) {
-          // ignore
+        if (!window.closed) {
+          window.location.href = "/";
         }
-      }, 150);
-    }, 100);
+      } catch (e) {
+        window.location.href = "/";
+      }
+    }, 200);
   };
 
   // สร้างรายการหมวดหมู่ตามข้อคำถามจริงของแบบสอบถามชุดนี้ (รองรับการปรับแต่งอิสระ)
