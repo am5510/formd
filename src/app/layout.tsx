@@ -6,7 +6,7 @@ import { ProgressProvider } from "@/context/ProgressContext";
 export const metadata: Metadata = {
   title: "ระบบประเมินโครงการฝึกอบรม | Training Evaluation System",
   description:
-    "ระบบประเมินผลโครงการฝึกอบรมและแดชบอร์ดสรุปผลสถิติสำหรับหน่วยงานภาครัฐและองค์กร เชื่อมต่อ Neon Database และ Cloudflare R2",
+    "ระบบประเมินผลโครงการฝึกอบรมและแดชบอร์ดสรุปผลสถิติสำหรับหน่วยงานภาครัฐและองค์กร เชื่อมต่อ Cloudflare D1 Database และ Cloudflare R2",
 };
 
 export default function RootLayout({

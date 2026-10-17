@@ -240,8 +240,8 @@ export default function FormPage() {
       if (qId) {
         setViewMode("form");
         fetch(`/api/questionnaires?id=${encodeURIComponent(qId)}`)
-          .then((res) => res.json())
-          .then((data) => {
+          .then((res) => res.json() as any)
+          .then((data: any) => {
             if (data.questionnaire) {
               applyQuestionnaire(data.questionnaire);
             }
@@ -255,8 +255,8 @@ export default function FormPage() {
     syncFromUrl();
 
     fetch("/api/questionnaires")
-      .then((res) => res.json())
-      .then((data) => {
+      .then((res) => res.json() as any)
+      .then((data: any) => {
         if (Array.isArray(data.questionnaires)) {
           setAllQuestionnaires(data.questionnaires);
           try {
@@ -382,7 +382,7 @@ export default function FormPage() {
       });
 
       if (!res.ok) {
-        throw new Error("ไม่สามารถบันทึกแบบประเมินลงในฐานข้อมูล Neon ได้");
+        throw new Error("ไม่สามารถบันทึกแบบประเมินลงในฐานข้อมูล Cloudflare D1 ได้");
       }
 
       // ลบแบบร่าง
@@ -1401,7 +1401,7 @@ export default function FormPage() {
 
           {/* ข้อความยืนยันการบันทึกครั้งเดียว */}
           <p className="text-[11px] text-on-surface-variant text-center max-w-md leading-relaxed">
-            ระบบจะทำการบันทึกข้อมูลทั้งหมดลงฐานข้อมูล Neon ในคราวเดียวเมื่อกดปุ่มนี้เท่านั้น (ระหว่างทำแบบประเมินจะไม่มีการส่งข้อมูลใด ๆ)
+            ระบบจะทำการบันทึกข้อมูลทั้งหมดลงฐานข้อมูล Cloudflare D1 ในคราวเดียวเมื่อกดปุ่มนี้เท่านั้น (ระหว่างทำแบบประเมินจะไม่มีการส่งข้อมูลใด ๆ)
           </p>
         </div>
       </form>

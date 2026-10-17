@@ -214,7 +214,7 @@ export default function AdminPage() {
           // ดึงข้อมูลเฉพาะ ID หากเป็นแบบสอบถามเริ่มต้น
           fetch(`/api/questionnaires?id=${encodeURIComponent(editId)}`)
             .then((r) => r.json())
-            .then((d) => {
+            .then((d: any) => {
               if (d.questionnaire) startEditQuestionnaire(d.questionnaire);
             });
         }
@@ -249,7 +249,7 @@ export default function AdminPage() {
     try {
       const res = await fetch("/api/questionnaires");
       if (res.ok) {
-        const data = await res.json();
+        const data = (await res.json()) as any;
         const list = data.questionnaires || [];
         setQuestionnaires(list);
         try {
@@ -645,7 +645,7 @@ export default function AdminPage() {
         throw new Error("ไม่สามารถบันทึกแบบสอบถามได้");
       }
 
-      const data = await res.json();
+      const data = (await res.json()) as any;
       const savedQnr: Questionnaire = data.questionnaire;
 
       // เมื่อกด OK เสร็จ พาไปหน้าแบบสอบถามที่สร้างขึ้นมาใหม่ทันที พร้อมแถบแชร์ลิงก์!

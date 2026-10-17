@@ -1,6 +1,6 @@
 # ระบบประเมินโครงการฝึกอบรมและแดชบอร์ดสรุปผล (GovPulse Analytics)
 
-เว็บแอปพลิเคชัน Full-Stack พัฒนาด้วย **Next.js (App Router)** สำหรับจัดการและประเมินผลโครงการฝึกอบรมของภาครัฐและองค์กร เชื่อมต่อฐานข้อมูล **Neon Serverless PostgreSQL** และจัดเก็บเอกสาร/รูปภาพบน **Cloudflare R2** โดยออกแบบตามมาตรฐานการประเมินโครงการ 5 ด้านของสำนักงาน ก.พ.ร.
+เว็บแอปพลิเคชัน Full-Stack พัฒนาด้วย **Next.js (App Router)** สำหรับจัดการและประเมินผลโครงการฝึกอบรมของภาครัฐและองค์กร เชื่อมต่อฐานข้อมูล **Cloudflare D1 (Serverless SQLite)** และจัดเก็บเอกสาร/รูปภาพบน **Cloudflare R2** โดยออกแบบตามมาตรฐานการประเมินโครงการ 5 ด้านของสำนักงาน ก.พ.ร.
 
 ---
 
@@ -33,7 +33,7 @@
 - **Framework:** Next.js 14+ (App Router, Server Actions, Route Handlers)
 - **Frontend:** React 18, Tailwind CSS, Lucide Icons, Material Symbols
 - **Typography:** ฟอนต์ Sarabun และ Be Vietnam Pro (คมชัด รองรับวรรณยุกต์ภาษาไทย)
-- **Database:** Neon Serverless PostgreSQL (`@neondatabase/serverless`)
+- **Database:** Cloudflare D1 Serverless SQLite (Binding: `env.DB`)
 - **Object Storage:** Cloudflare R2 (`@aws-sdk/client-s3`, `@aws-sdk/s3-request-presigner`)
 - **Exporting:** SheetJS (`xlsx`) สำหรับการสร้างไฟล์ Excel แบบไดนามิก
 
@@ -52,31 +52,21 @@ npm run dev
 ```
 เปิดเบราว์เซอร์ไปที่: [http://localhost:3000](http://localhost:3000)
 
-### 3. สร้าง Production Build
+### 3. รัน Simulation Cloudflare Workers ในเครื่อง
 ```bash
-npm run build
-npm start
+npm run preview:cloudflare
 ```
 
 ---
 
 ## ⚙️ การตั้งค่าการเชื่อมต่อ (Environment Configuration)
 
-คัดลอกไฟล์ `.env.example` ไปเป็น `.env.local`:
+### 1. เชื่อมต่อ Cloudflare D1
+ตั้งค่าผูก Binding `DB` ใน `wrangler.jsonc` (Database ID: `0e4e03a8-9cb7-4f96-9db5-86702ec91206`)
+รันสร้างตารางหรือ migrate:
 ```bash
-cp .env.example .env.local
+npm run d1:migrate:remote
 ```
-
-### 1. เชื่อมต่อ Neon Database (PostgreSQL)
-1. สมัครใช้งานที่ [https://neon.tech](https://neon.tech)
-2. สร้าง Project และ Database ใหม่
-3. เข้าไปที่เมนู **SQL Editor** บน Neon Console แล้วนำสคริปต์จากไฟล์ `src/lib/db/schema.sql` ไปวางเพื่อสร้างตารางทั้งหมด
-4. คัดลอก Connection String มาวางใน `.env.local`:
-```env
-DATABASE_URL="postgresql://neondb_owner:password@ep-sample-123.us-east-2.aws.neon.tech/neondb?sslmode=require"
-```
-
-> **หมายเหตุ:** หากยังไม่ได้ใส่ `DATABASE_URL` ระบบจะทำงานในโหมดจำลอง (In-Memory Fallback) โดยใช้ชุดข้อมูล 148 ผู้ตอบตามต้นแบบทันที ทำให้สามารถทดสอบและพรีวิวหน้าเว็บได้ทันทีโดยไม่เกิด Error
 
 ### 2. เชื่อมต่อ Cloudflare R2
 1. เข้าไปที่ Cloudflare Dashboard: [https://dash.cloudflare.com](https://dash.cloudflare.com)
@@ -122,8 +112,8 @@ training_form/
 │       ├── stats.ts               # ฟังก์ชันคำนวณสถิติ Mean, S.D., ร้อยละ, การแปลผล
 │       ├── types.ts               # TypeScript Interfaces
 │       ├── db/
-│       │   ├── neon.ts            # Client เชื่อมต่อ Neon Database
-│       │   ├── schema.sql         # สคริปต์ SQL DDL สร้างตารางใน Neon
+│       │   ├── d1.ts              # Client เชื่อมต่อ Cloudflare D1 Database
+│       │   ├── schema.sql         # สคริปต์ SQL DDL สร้างตารางใน Cloudflare D1
 │       │   └── mockData.ts        # ข้อมูลจำลอง 148 รายการตรงตามรายงานต้นแบบ
 │       └── r2/
 │           └── client.ts          # AWS S3 Client สำหรับ Cloudflare R2
@@ -143,3 +133,64 @@ training_form/
 | 3 | ด้านการจัดโครงการและการประสานงาน | ข้อ 9 – 12 | `manage_accounts` |
 | 4 | ด้านสถานที่และสิ่งอำนวยความสะดวก | ข้อ 13 – 15 | `meeting_room` |
 | 5 | ด้านผลสัมฤทธิ์และความคุ้มค่า (ROI) | ข้อ 16 – 20 | `trending_up` |
+
+---
+
+## 🚀 การ Deploy ไปยัง Vercel (Deployment Guide)
+
+โครงการนี้สร้างด้วย Next.js 14 App Router สามารถ Deploy ขึ้น **Vercel** ได้ทันทีโดยไม่ต้องตั้งค่า Build ซับซ้อน
+
+### วิธีที่ 1: Deploy ผ่าน GitHub (แนะนำที่สุด)
+1. Push โค้ดขึ้น GitHub:
+   ```bash
+   git add .
+   git commit -m "Prepare for Vercel deployment"
+   git push origin main
+   ```
+2. เข้าไปที่ [Vercel Dashboard](https://vercel.com/new)
+3. เลือก **Import** Repository `formd` (หรือ GitHub repo ของคุณ)
+4. ตั้งค่า **Framework Preset:** `Next.js` (Vercel จะตรวจจับให้อัตโนมัติ)
+5. ในส่วน **Environment Variables** ให้เพิ่มตัวแปรต่อไปนี้:
+   - `DATABASE_URL`: Connection string จาก Neon PostgreSQL (ขึ้นต้นด้วย `postgresql://...`)
+   - `CLOUDFLARE_R2_ACCOUNT_ID`: Cloudflare Account ID
+   - `CLOUDFLARE_R2_ACCESS_KEY_ID`: Cloudflare R2 Access Key
+   - `CLOUDFLARE_R2_SECRET_ACCESS_KEY`: Cloudflare R2 Secret Access Key
+   - `CLOUDFLARE_R2_BUCKET_NAME`: เช่น `training-form-r2`
+   - `CLOUDFLARE_R2_PUBLIC_URL`: URL สาธารณะของ R2 เช่น `https://pub-xxx.r2.dev`
+6. กดปุ่ม **Deploy** แล้วรอประมาณ 1 นาที ระบบจะสร้าง Production URL พร้อมใช้งานทันที
+
+### วิธีที่ 2: Deploy ผ่าน Vercel CLI
+```bash
+# ติดตั้ง Vercel CLI และ Deploy
+npx vercel
+# เมื่อพร้อมขึ้น Production
+npx vercel --prod
+```
+
+---
+
+## ☁️ การ Deploy ไปยัง Cloudflare (Workers/Pages + D1 Database)
+
+โครงการนี้รองรับการ Deploy บน Cloudflare แบบ Full-Stack ร่วมกับ **Cloudflare D1** (Database ID: `0e4e03a8-9cb7-4f96-9db5-86702ec91206`) และ **Cloudflare R2**
+
+### 1. รันสร้างตารางใน Cloudflare D1 (Database ID: `0e4e03a8-9cb7-4f96-9db5-86702ec91206`)
+สามารถรันผ่าน Wrangler CLI (หรือนำ SQL ใน `src/lib/db/schema.d1.sql` ไปรันในหน้า Cloudflare Console):
+```bash
+# ล็อกอิน Wrangler ก่อนในเครื่อง
+npx wrangler login
+
+# รันสร้างตารางไปยัง Remote D1 Database
+npm run d1:migrate:remote
+```
+
+### 2. ทดสอบรัน Local Dev บน Cloudflare Simulation
+```bash
+npm run preview:cloudflare
+```
+
+### 3. สั่ง Deploy ขึ้น Cloudflare Workers
+```bash
+npm run deploy:cloudflare
+```
+
+

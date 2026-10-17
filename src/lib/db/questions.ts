@@ -1,68 +1,41 @@
-import { EVALUATION_QUESTIONS, DIMENSIONS } from "../constants";
+import { EVALUATION_QUESTIONS } from "../constants";
 import { QuestionItem } from "../types";
-import { getNeonSql, isNeonConfigured } from "./neon";
+import { getD1 } from "./d1";
 
 // In-Memory store เริ่มต้นด้วยข้อคำถามมาตรฐาน 20 ข้อ
 let inMemoryQuestions: QuestionItem[] = [...EVALUATION_QUESTIONS];
 
 /**
- * ดึงรายการข้อคำถามทั้งหมด
+ * ดึงรายการข้อคำถามทั้งหมด จาก Cloudflare D1
  */
 export async function getActiveQuestions(
   projectId: string = "PRJ-2567-TR048"
 ): Promise<QuestionItem[]> {
-  const sql = getNeonSql();
-
-  if (!sql) {
-    return inMemoryQuestions;
-  }
-
-  try {
-    // สร้างตาราง evaluation_questions หากยังไม่มี
-    await sql`
-      CREATE TABLE IF NOT EXISTS evaluation_questions (
-        id SERIAL PRIMARY KEY,
-        project_id VARCHAR(64) DEFAULT 'PRJ-2567-TR048',
-        dimension_id INT NOT NULL,
-        dimension_title VARCHAR(255) NOT NULL,
-        text TEXT NOT NULL,
-        order_num INT DEFAULT 0,
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    const rows = await sql`
-      SELECT id, dimension_id, dimension_title, text 
-      FROM evaluation_questions 
-      WHERE project_id = ${projectId}
-      ORDER BY dimension_id ASC, id ASC;
-    `;
-
-    if (rows.length === 0) {
-      // Seed default questions into DB on first run
-      for (const q of EVALUATION_QUESTIONS) {
-        await sql`
-          INSERT INTO evaluation_questions (project_id, dimension_id, dimension_title, text)
-          VALUES (${projectId}, ${q.dimensionId}, ${q.dimensionTitle}, ${q.text});
-        `;
+  const d1 = await getD1();
+  if (d1) {
+    try {
+      const res = await d1.prepare(
+        "SELECT id, dimension_id, dimension_title, text FROM evaluation_questions WHERE project_id = ? ORDER BY dimension_id ASC, id ASC"
+      ).bind(projectId).all();
+      const rows = res.results || [];
+      if (rows.length > 0) {
+        return rows.map((r: any) => ({
+          id: Number(r.id),
+          dimensionId: Number(r.dimension_id),
+          dimensionTitle: r.dimension_title,
+          text: r.text,
+        }));
       }
-      return inMemoryQuestions;
+    } catch (err) {
+      console.warn("D1 query error in getActiveQuestions:", err);
     }
-
-    return rows.map((r: any) => ({
-      id: Number(r.id),
-      dimensionId: Number(r.dimension_id),
-      dimensionTitle: r.dimension_title,
-      text: r.text,
-    }));
-  } catch (err) {
-    console.warn("Failed to query evaluation_questions from Neon, using memory:", err);
-    return inMemoryQuestions;
   }
+
+  return inMemoryQuestions;
 }
 
 /**
- * เพิ่มข้อคำถามใหม่จากหน้าแอดมิน
+ * เพิ่มข้อคำถามใหม่จากหน้าแอดมิน ลงใน Cloudflare D1
  */
 export async function createQuestion(
   dimensionId: number,
@@ -70,8 +43,6 @@ export async function createQuestion(
   text: string,
   projectId: string = "PRJ-2567-TR048"
 ): Promise<QuestionItem> {
-  const sql = getNeonSql();
-
   const newId = inMemoryQuestions.length > 0 
     ? Math.max(...inMemoryQuestions.map((q) => q.id)) + 1 
     : 1;
@@ -85,18 +56,17 @@ export async function createQuestion(
 
   inMemoryQuestions.push(newQuestion);
 
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      const res = await sql`
-        INSERT INTO evaluation_questions (project_id, dimension_id, dimension_title, text)
-        VALUES (${projectId}, ${dimensionId}, ${dimensionTitle}, ${text})
-        RETURNING id;
-      `;
-      if (res && res.length > 0) {
-        newQuestion.id = Number(res[0].id);
+      const res = await d1.prepare(
+        "INSERT INTO evaluation_questions (project_id, dimension_id, dimension_title, text) VALUES (?, ?, ?, ?) RETURNING id"
+      ).bind(projectId, dimensionId, dimensionTitle, text).first<{ id: number }>();
+      if (res?.id) {
+        newQuestion.id = Number(res.id);
       }
     } catch (err) {
-      console.error("Failed to insert question to Neon:", err);
+      console.error("Failed to insert question into D1:", err);
     }
   }
 
@@ -104,7 +74,7 @@ export async function createQuestion(
 }
 
 /**
- * แก้ไขข้อคำถาม
+ * แก้ไขข้อคำถาม บน Cloudflare D1
  */
 export async function updateQuestion(
   id: number,
@@ -119,24 +89,20 @@ export async function updateQuestion(
     if (dimensionTitle) inMemoryQuestions[index].dimensionTitle = dimensionTitle;
   }
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
       if (dimensionId && dimensionTitle) {
-        await sql`
-          UPDATE evaluation_questions 
-          SET text = ${text}, dimension_id = ${dimensionId}, dimension_title = ${dimensionTitle}
-          WHERE id = ${id};
-        `;
+        await d1.prepare(
+          "UPDATE evaluation_questions SET text = ?, dimension_id = ?, dimension_title = ? WHERE id = ?"
+        ).bind(text, dimensionId, dimensionTitle, id).run();
       } else {
-        await sql`
-          UPDATE evaluation_questions 
-          SET text = ${text}
-          WHERE id = ${id};
-        `;
+        await d1.prepare(
+          "UPDATE evaluation_questions SET text = ? WHERE id = ?"
+        ).bind(text, id).run();
       }
     } catch (err) {
-      console.error("Failed to update question in Neon:", err);
+      console.error("Failed to update question in D1:", err);
     }
   }
 
@@ -144,19 +110,17 @@ export async function updateQuestion(
 }
 
 /**
- * ลบข้อคำถาม
+ * ลบข้อคำถาม จาก Cloudflare D1
  */
 export async function deleteQuestion(id: number): Promise<boolean> {
   inMemoryQuestions = inMemoryQuestions.filter((q) => q.id !== id);
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      await sql`
-        DELETE FROM evaluation_questions WHERE id = ${id};
-      `;
+      await d1.prepare("DELETE FROM evaluation_questions WHERE id = ?").bind(id).run();
     } catch (err) {
-      console.error("Failed to delete question from Neon:", err);
+      console.error("Failed to delete question from D1:", err);
     }
   }
 
@@ -164,25 +128,24 @@ export async function deleteQuestion(id: number): Promise<boolean> {
 }
 
 /**
- * คืนค่าข้อคำถามตั้งต้น 20 ข้อ
+ * คืนค่าข้อคำถามตั้งต้น 20 ข้อ บน Cloudflare D1
  */
 export async function resetToDefaultQuestions(
   projectId: string = "PRJ-2567-TR048"
 ): Promise<QuestionItem[]> {
   inMemoryQuestions = [...EVALUATION_QUESTIONS];
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      await sql`DELETE FROM evaluation_questions WHERE project_id = ${projectId};`;
+      await d1.prepare("DELETE FROM evaluation_questions WHERE project_id = ?").bind(projectId).run();
       for (const q of EVALUATION_QUESTIONS) {
-        await sql`
-          INSERT INTO evaluation_questions (project_id, dimension_id, dimension_title, text)
-          VALUES (${projectId}, ${q.dimensionId}, ${q.dimensionTitle}, ${q.text});
-        `;
+        await d1.prepare(
+          "INSERT INTO evaluation_questions (project_id, dimension_id, dimension_title, text) VALUES (?, ?, ?, ?)"
+        ).bind(projectId, q.dimensionId, q.dimensionTitle, q.text).run();
       }
     } catch (err) {
-      console.error("Failed to reset questions in Neon:", err);
+      console.error("Failed to reset questions in D1:", err);
     }
   }
 

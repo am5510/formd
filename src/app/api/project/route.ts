@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
  */
 export async function PUT(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body = (await req.json()) as any;
     const projectId = body.id || "PRJ-2567-TR048";
     const updated = await updateProject(body, projectId);
     return NextResponse.json({ success: true, project: updated });

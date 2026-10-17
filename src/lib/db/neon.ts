@@ -1,10 +1,8 @@
-import { neon } from "@neondatabase/serverless";
 import { EvaluationResponseInput, EvaluationResponseRecord, DashboardSummary } from "../types";
 import { INITIAL_MOCK_RESPONSES } from "./mockData";
+import { getD1 } from "./d1";
 
-const databaseUrl = process.env.DATABASE_URL;
-
-// In-memory store fallback สำหรับการทดสอบเมื่อยังไม่ได้ใส่ DATABASE_URL
+// In-memory store fallback สำหรับการทดสอบเมื่อยังไม่ได้เชื่อมต่อ Cloudflare D1
 let inMemoryResponses: EvaluationResponseRecord[] = [...INITIAL_MOCK_RESPONSES];
 
 interface ResponsesCacheEntry {
@@ -38,24 +36,7 @@ export function invalidateDashboardCache() {
 }
 
 /**
- * ตรวจสอบว่าระบบเชื่อมต่อ Neon Database ได้หรือไม่
- */
-export function isNeonConfigured(): boolean {
-  return Boolean(databaseUrl && databaseUrl.trim().length > 0 && databaseUrl.startsWith("postgres"));
-}
-
-/**
- * สร้าง Client สำหรับส่งคำสั่งไปยัง Neon PostgreSQL
- */
-export function getNeonSql() {
-  if (!isNeonConfigured()) {
-    return null;
-  }
-  return neon(databaseUrl!);
-}
-
-/**
- * ดึงรายการบันทึกแบบประเมินทั้งหมด (พร้อมตัวกรองโครงการ และรุ่น)
+ * ดึงรายการบันทึกแบบประเมินทั้งหมด (พร้อมตัวกรองโครงการ และรุ่น) จาก Cloudflare D1
  */
 export async function getEvaluationResponses(
   projectId: string = "PRJ-2567-TR048",
@@ -67,94 +48,85 @@ export async function getEvaluationResponses(
     return cached.data;
   }
 
-  const sql = getNeonSql();
-
-  if (!sql) {
-    // Fallback: ใช้ In-Memory Mock Data
-    const fallbackData = inMemoryResponses.filter((r) => {
-      const matchProject = r.projectId === projectId;
-      const matchCohort = !cohortId || cohortId === "all" || r.cohortId === cohortId;
-      return matchProject && matchCohort;
-    });
-    responsesCache.set(cacheKey, { data: fallbackData, time: Date.now() });
-    return fallbackData;
-  }
-
-  try {
-    let rows;
-    if (!cohortId || cohortId === "all") {
-      rows = await sql`
-        SELECT * FROM evaluation_responses 
-        WHERE project_id = ${projectId} 
-        ORDER BY created_at DESC
-      `;
-    } else {
-      rows = await sql`
-        SELECT * FROM evaluation_responses 
-        WHERE project_id = ${projectId} AND cohort_id = ${cohortId}
-        ORDER BY created_at DESC
-      `;
-    }
-
-    const result = rows.map((row: any) => {
-      const scores: Record<string, number> = {};
-      for (let i = 1; i <= 20; i++) {
-        const val = Number(row[`q${i}`]);
-        scores[`q${i}`] = val;
-        scores[i] = val;
-        scores[String(i)] = val;
+  const d1 = await getD1();
+  if (d1) {
+    try {
+      let rows: any[];
+      if (!cohortId || cohortId === "all") {
+        const res = await d1.prepare(
+          "SELECT * FROM evaluation_responses WHERE project_id = ? ORDER BY created_at DESC"
+        ).bind(projectId).all();
+        rows = res.results || [];
+      } else {
+        const res = await d1.prepare(
+          "SELECT * FROM evaluation_responses WHERE project_id = ? AND cohort_id = ? ORDER BY created_at DESC"
+        ).bind(projectId, cohortId).all();
+        rows = res.results || [];
       }
-      let feedbackData: Record<string, string> = {};
-      let demographicData: Record<string, string> = {};
-      if (row.feedback_data) {
-        try {
-          const parsed = typeof row.feedback_data === "string" ? JSON.parse(row.feedback_data) : row.feedback_data;
-          if (parsed && typeof parsed === "object") {
-            feedbackData = parsed;
-            if (parsed._demographicValues) {
-              demographicData = parsed._demographicValues;
-            } else {
-              demographicData = parsed;
+
+      const result = rows.map((row: any) => {
+        const scores: Record<string, number> = {};
+        for (let i = 1; i <= 20; i++) {
+          const val = Number(row[`q${i}`]);
+          scores[`q${i}`] = val;
+          scores[i] = val;
+          scores[String(i)] = val;
+        }
+        let feedbackData: Record<string, string> = {};
+        let demographicData: Record<string, string> = {};
+        if (row.feedback_data) {
+          try {
+            const parsed = typeof row.feedback_data === "string" ? JSON.parse(row.feedback_data) : row.feedback_data;
+            if (parsed && typeof parsed === "object") {
+              feedbackData = parsed;
+              demographicData = parsed._demographicValues || parsed;
             }
-          }
-        } catch (_) {}
-      }
-      return {
-        id: row.id,
-        projectId: row.project_id,
-        cohortId: row.cohort_id,
-        respondentName: row.respondent_name,
-        govId: row.gov_id,
-        positionLevel: row.position_level,
-        scores,
-        scoreMean: Number(row.score_mean),
-        feedbackStrength: row.feedback_strength,
-        feedbackImprove: row.feedback_improve,
-        feedbackTopics: row.feedback_topics,
-        feedbackOthers: row.feedback_others,
-        feedbackValues: feedbackData,
-        demographicValues: demographicData,
-        isDraft: Boolean(row.is_draft),
-        createdAt: row.created_at,
-      };
-    });
+          } catch (_) {}
+        }
+        return {
+          id: row.id,
+          projectId: row.project_id,
+          cohortId: row.cohort_id,
+          respondentName: row.respondent_name,
+          govId: row.gov_id,
+          positionLevel: row.position_level,
+          scores,
+          scoreMean: Number(row.score_mean),
+          feedbackStrength: row.feedback_strength,
+          feedbackImprove: row.feedback_improve,
+          feedbackTopics: row.feedback_topics,
+          feedbackOthers: row.feedback_others,
+          feedbackValues: feedbackData,
+          demographicValues: demographicData,
+          isDraft: Boolean(row.is_draft),
+          createdAt: row.created_at,
+        };
+      });
 
-    responsesCache.set(cacheKey, { data: result, time: Date.now() });
-    return result;
-  } catch (err) {
-    console.warn("Neon DB query error, falling back to mock data:", err);
-    return inMemoryResponses;
+      responsesCache.set(cacheKey, { data: result, time: Date.now() });
+      return result;
+    } catch (err) {
+      console.warn("D1 query error in getEvaluationResponses, falling back to mock:", err);
+    }
   }
+
+  // Fallback: ใช้ In-Memory Mock Data เมื่อรันในสภาพแวดล้อมที่ยังไม่ได้ต่อ D1
+  const fallbackData = inMemoryResponses.filter((r) => {
+    const matchProject = r.projectId === projectId;
+    const matchCohort = !cohortId || cohortId === "all" || r.cohortId === cohortId;
+    return matchProject && matchCohort;
+  });
+  responsesCache.set(cacheKey, { data: fallbackData, time: Date.now() });
+  return fallbackData;
 }
 
 /**
- * บันทึกแบบประเมินความพึงพอใจใหม่ลงใน Neon Database
+ * บันทึกแบบประเมินความพึงพอใจใหม่ลงใน Cloudflare D1
  */
 export async function insertEvaluationResponse(
   input: EvaluationResponseInput,
   isDraft: boolean = false
 ): Promise<EvaluationResponseRecord> {
-  const scoreKeys = Object.keys(input.scores);
   const scoreValues = Object.values(input.scores);
   const sum = scoreValues.reduce((a, b) => a + b, 0);
   const scoreMean = scoreValues.length > 0 ? Number((sum / scoreValues.length).toFixed(2)) : 0;
@@ -190,45 +162,42 @@ export async function insertEvaluationResponse(
     createdAt: new Date().toISOString(),
   };
 
-  const sql = getNeonSql();
+  const d1 = await getD1();
+  if (d1) {
+    try {
+      const q = input.scores;
+      await d1.prepare(`
+        INSERT INTO evaluation_responses (
+          id, project_id, cohort_id, respondent_name, gov_id, position_level,
+          q1, q2, q3, q4, q5, q6, q7, q8, q9, q10,
+          q11, q12, q13, q14, q15, q16, q17, q18, q19, q20,
+          score_mean, feedback_strength, feedback_improve, feedback_topics, feedback_others, feedback_data, is_draft, created_at
+        ) VALUES (
+          ?, ?, ?, ?, ?, ?,
+          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+          ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
+          ?, ?, ?, ?, ?, ?, ?, ?
+        )
+      `).bind(
+        newRecord.id, input.projectId, input.cohortId || null, input.respondentName, input.govId || null, input.positionLevel,
+        q.q1 || 5, q.q2 || 5, q.q3 || 5, q.q4 || 5, q.q5 || 5,
+        q.q6 || 5, q.q7 || 5, q.q8 || 5, q.q9 || 5, q.q10 || 5,
+        q.q11 || 5, q.q12 || 5, q.q13 || 5, q.q14 || 5, q.q15 || 5,
+        q.q16 || 5, q.q17 || 5, q.q18 || 5, q.q19 || 5, q.q20 || 5,
+        scoreMean, input.feedbackStrength || null, input.feedbackImprove || null,
+        input.feedbackTopics || null, input.feedbackOthers || null, JSON.stringify(feedbackMap), isDraft ? 1 : 0, newRecord.createdAt
+      ).run();
 
-  if (!sql) {
-    inMemoryResponses.unshift(newRecord);
-    return newRecord;
-  }
-
-  try {
-    const q = input.scores;
-    const inserted = await sql`
-      INSERT INTO evaluation_responses (
-        project_id, cohort_id, respondent_name, gov_id, position_level,
-        q1, q2, q3, q4, q5, q6, q7, q8, q9, q10,
-        q11, q12, q13, q14, q15, q16, q17, q18, q19, q20,
-        score_mean, feedback_strength, feedback_improve, feedback_topics, feedback_others, feedback_data, is_draft
-      ) VALUES (
-        ${input.projectId}, ${input.cohortId || null}, ${input.respondentName}, ${input.govId || null}, ${input.positionLevel},
-        ${q.q1 || 5}, ${q.q2 || 5}, ${q.q3 || 5}, ${q.q4 || 5}, ${q.q5 || 5},
-        ${q.q6 || 5}, ${q.q7 || 5}, ${q.q8 || 5}, ${q.q9 || 5}, ${q.q10 || 5},
-        ${q.q11 || 5}, ${q.q12 || 5}, ${q.q13 || 5}, ${q.q14 || 5}, ${q.q15 || 5},
-        ${q.q16 || 5}, ${q.q17 || 5}, ${q.q18 || 5}, ${q.q19 || 5}, ${q.q20 || 5},
-        ${scoreMean}, ${input.feedbackStrength || null}, ${input.feedbackImprove || null},
-        ${input.feedbackTopics || null}, ${input.feedbackOthers || null}, ${JSON.stringify(feedbackMap)}, ${isDraft}
-      )
-      RETURNING id, created_at;
-    `;
-
-    if (inserted && inserted.length > 0) {
-      newRecord.id = inserted[0].id;
-      newRecord.createdAt = inserted[0].created_at;
+      invalidateResponsesCache();
+      invalidateDashboardCache();
+      return newRecord;
+    } catch (err) {
+      console.error("Failed to insert into D1, falling back to Memory:", err);
     }
-  } catch (err) {
-    console.error("Failed to insert into Neon DB, kept in memory:", err);
-    inMemoryResponses.unshift(newRecord);
   }
 
-  // เคลียร์ in-memory cache ทันทีเมื่อมีผู้ส่งแบบประเมินใหม่
+  inMemoryResponses.unshift(newRecord);
   invalidateResponsesCache();
   invalidateDashboardCache();
-
   return newRecord;
 }

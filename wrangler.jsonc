@@ -10,6 +10,13 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "training-db",
+      "database_id": "0e4e03a8-9cb7-4f96-9db5-86702ec91206"
+    }
+  ],
   "observability": {
     "enabled": true
   }

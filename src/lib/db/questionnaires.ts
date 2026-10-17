@@ -19,47 +19,21 @@ import {
   FeedbackFieldItem,
   DemographicFieldItem,
 } from "../types";
-import { getNeonSql } from "./neon";
+import { getD1 } from "./d1";
 
 // In-Memory store สำหรับเก็บรายการแบบสอบถามทั้งหมดที่ถูกสร้างขึ้น
 let inMemoryQuestionnaires: Questionnaire[] = [];
-let tableEnsured = false;
 let cachedQuestionnaires: Questionnaire[] | null = null;
 let lastCacheTime = 0;
-const CACHE_TTL_MS = 20000; // 20 วินาที cache เพื่อลดเวลาเรียกฐานข้อมูล Neon ซ้ำซ้อน
+const CACHE_TTL_MS = 20000; // 20 วินาที cache
 
 export function invalidateQuestionnairesCache() {
   cachedQuestionnaires = null;
   lastCacheTime = 0;
 }
 
-async function ensureTable(sql: any) {
-  if (tableEnsured) return;
-  await sql`
-    CREATE TABLE IF NOT EXISTS questionnaires (
-      id VARCHAR(64) PRIMARY KEY,
-      title TEXT NOT NULL,
-      course_title TEXT NOT NULL,
-      instructors TEXT NOT NULL,
-      department TEXT NOT NULL,
-      date_display TEXT NOT NULL,
-      venue TEXT NOT NULL,
-      questions JSONB NOT NULL,
-      extra_config JSONB DEFAULT '{}'::jsonb,
-      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-    );
-  `;
-  try {
-    await sql`ALTER TABLE questionnaires ADD COLUMN IF NOT EXISTS extra_config JSONB DEFAULT '{}'::jsonb;`;
-  } catch {
-    // ignore if already exists
-  }
-  tableEnsured = true;
-}
-
 /**
- * ดึงรายการแบบสอบถามทั้งหมดที่สร้างไว้
+ * ดึงรายการแบบสอบถามทั้งหมดที่สร้างไว้ จาก Cloudflare D1
  */
 export async function getAllQuestionnaires(): Promise<Questionnaire[]> {
   const now = Date.now();
@@ -67,154 +41,80 @@ export async function getAllQuestionnaires(): Promise<Questionnaire[]> {
     return cachedQuestionnaires;
   }
 
-  const sql = getNeonSql();
-  if (!sql) {
-    return inMemoryQuestionnaires;
-  }
-
-  try {
-    await ensureTable(sql);
-    const rows = await sql`
-      SELECT id, title, course_title, instructors, department, date_display, venue, questions, extra_config, created_at, updated_at
-      FROM questionnaires
-      ORDER BY created_at DESC;
-    `;
-
-    const list: Questionnaire[] = rows.map((r: any) => {
-      const extra =
-        r.extra_config && typeof r.extra_config === "string"
-          ? JSON.parse(r.extra_config)
-          : r.extra_config || {};
-      return {
-        id: r.id,
-        title: r.title,
-        courseTitle: r.course_title,
-        instructors: r.instructors,
-        department: r.department,
-        dateDisplay: r.date_display,
-        venue: r.venue,
-        targetAttendees: Number(extra.targetAttendees) || 150,
-        enableSection1: extra.enableSection1 ?? true,
-        section1Title: extra.section1Title || DEFAULT_SECTION1_TITLE,
-        respondentNameLabel: extra.respondentNameLabel || DEFAULT_RESPONDENT_NAME_LABEL,
-        respondentNamePlaceholder:
-          extra.respondentNamePlaceholder !== undefined
-            ? extra.respondentNamePlaceholder
-            : "",
-        respondentNameRequired: extra.respondentNameRequired ?? true,
-        enableGovId: extra.enableGovId ?? true,
-        govIdLabel: extra.govIdLabel || DEFAULT_GOV_ID_LABEL,
-        govIdPlaceholder:
-          extra.govIdPlaceholder !== undefined ? extra.govIdPlaceholder : "",
-        govIdRequired: extra.govIdRequired ?? false,
-        demographicCustomFields: Array.isArray(extra.demographicCustomFields)
-          ? extra.demographicCustomFields
-          : [],
-        questions: typeof r.questions === "string" ? JSON.parse(r.questions) : r.questions,
-        enableSection3: extra.enableSection3 ?? true,
-        section3Title: extra.section3Title || DEFAULT_SECTION3_TITLE,
-        feedbackItems: Array.isArray(extra.feedbackItems)
-          ? extra.feedbackItems
-          : [...DEFAULT_FEEDBACK_ITEMS],
-        enableSection4: extra.enableSection4 ?? true,
-        section4Title: extra.section4Title || DEFAULT_SECTION4_TITLE,
-        section4Description: extra.section4Description || DEFAULT_SECTION4_DESCRIPTION,
-        section4Label: extra.section4Label || DEFAULT_SECTION4_LABEL,
-        section4HelperText: extra.section4HelperText || DEFAULT_SECTION4_HELPER_TEXT,
-        createdAt: r.created_at ? new Date(r.created_at).toISOString() : new Date().toISOString(),
-        updatedAt: r.updated_at ? new Date(r.updated_at).toISOString() : new Date().toISOString(),
-      };
-    });
-
-    if (list.length === 0) {
-      const defaultQnr = await createQuestionnaire({
-        title: DEFAULT_PROJECT.title,
-        courseTitle:
-          DEFAULT_PROJECT.courseTitle ||
-          "เทคโนโลยีปัญญาประดิษฐ์และการประยุกต์ใช้ในงานภาครัฐ (Generative AI in Practice)",
-        instructors: DEFAULT_PROJECT.instructors,
-        department: DEFAULT_PROJECT.department,
-        dateDisplay: "15 - 17 พฤษภาคม 2567",
-        venue: DEFAULT_PROJECT.venue,
-        targetAttendees: DEFAULT_PROJECT.targetAttendees || 150,
-        questions: [...EVALUATION_QUESTIONS],
-        enableSection3: true,
-        section3Title: DEFAULT_SECTION3_TITLE,
-        feedbackItems: [...DEFAULT_FEEDBACK_ITEMS],
-        enableSection4: true,
-        section4Title: DEFAULT_SECTION4_TITLE,
-        section4Description: DEFAULT_SECTION4_DESCRIPTION,
-        section4Label: DEFAULT_SECTION4_LABEL,
-        section4HelperText: DEFAULT_SECTION4_HELPER_TEXT,
+  const d1 = await getD1();
+  if (d1) {
+    try {
+      const res = await d1.prepare(
+        "SELECT id, title, course_title, instructors, department, date_display, venue, questions, extra_config, created_at, updated_at FROM questionnaires ORDER BY created_at DESC"
+      ).all();
+      const rows = res.results || [];
+      const list: Questionnaire[] = rows.map((r: any) => {
+        const extra =
+          r.extra_config && typeof r.extra_config === "string"
+            ? JSON.parse(r.extra_config)
+            : r.extra_config || {};
+        return {
+          id: r.id,
+          title: r.title,
+          courseTitle: r.course_title,
+          instructors: r.instructors,
+          department: r.department,
+          dateDisplay: r.date_display,
+          venue: r.venue,
+          targetAttendees: Number(extra.targetAttendees) || 150,
+          enableSection1: extra.enableSection1 ?? true,
+          section1Title: extra.section1Title || DEFAULT_SECTION1_TITLE,
+          respondentNameLabel: extra.respondentNameLabel || DEFAULT_RESPONDENT_NAME_LABEL,
+          respondentNamePlaceholder:
+            extra.respondentNamePlaceholder !== undefined
+              ? extra.respondentNamePlaceholder
+              : "",
+          respondentNameRequired: extra.respondentNameRequired ?? true,
+          enableGovId: extra.enableGovId ?? true,
+          govIdLabel: extra.govIdLabel || DEFAULT_GOV_ID_LABEL,
+          govIdPlaceholder:
+            extra.govIdPlaceholder !== undefined ? extra.govIdPlaceholder : "",
+          govIdRequired: extra.govIdRequired ?? false,
+          demographicCustomFields: Array.isArray(extra.demographicCustomFields)
+            ? extra.demographicCustomFields
+            : [],
+          questions: typeof r.questions === "string" ? JSON.parse(r.questions) : r.questions,
+          enableSection3: extra.enableSection3 ?? true,
+          section3Title: extra.section3Title || DEFAULT_SECTION3_TITLE,
+          feedbackItems: Array.isArray(extra.feedbackItems)
+            ? extra.feedbackItems
+            : [...DEFAULT_FEEDBACK_ITEMS],
+          enableSection4: extra.enableSection4 ?? true,
+          section4Title: extra.section4Title || DEFAULT_SECTION4_TITLE,
+          section4Description: extra.section4Description || DEFAULT_SECTION4_DESCRIPTION,
+          section4Label: extra.section4Label || DEFAULT_SECTION4_LABEL,
+          section4HelperText: extra.section4HelperText || DEFAULT_SECTION4_HELPER_TEXT,
+          createdAt: r.created_at ? new Date(r.created_at).toISOString() : new Date().toISOString(),
+          updatedAt: r.updated_at ? new Date(r.updated_at).toISOString() : new Date().toISOString(),
+        };
       });
-      cachedQuestionnaires = [defaultQnr];
-      lastCacheTime = Date.now();
-      inMemoryQuestionnaires = [defaultQnr];
-      return [defaultQnr];
-    }
 
-    cachedQuestionnaires = list;
-    lastCacheTime = Date.now();
-    inMemoryQuestionnaires = list;
-    return list;
-  } catch (err) {
-    console.warn("Failed to load questionnaires from Neon, using memory:", err);
-    if (cachedQuestionnaires && cachedQuestionnaires.length > 0) return cachedQuestionnaires;
-    return inMemoryQuestionnaires;
+      if (list.length > 0) {
+        cachedQuestionnaires = list;
+        lastCacheTime = Date.now();
+        inMemoryQuestionnaires = list;
+        return list;
+      }
+    } catch (err) {
+      console.warn("D1 query error in getAllQuestionnaires, falling back:", err);
+    }
   }
+
+  if (inMemoryQuestionnaires.length === 0) {
+    const defaultQnr = getDefaultQuestionnaire();
+    inMemoryQuestionnaires = [defaultQnr];
+  }
+
+  return inMemoryQuestionnaires;
 }
 
-/**
- * ดึงแบบสอบถามตาม ID (หากไม่ระบุ ID จะดึงแบบสอบถามล่าสุด หรือค่าเริ่มต้น)
- */
-export async function getQuestionnaireById(id?: string | null): Promise<Questionnaire> {
-  const all = await getAllQuestionnaires();
-
-  if (id) {
-    const found = all.find((q) => q.id === id);
-    if (found) return found;
-    if (id === DEFAULT_PROJECT.id) {
-      return {
-        id: DEFAULT_PROJECT.id,
-        title: DEFAULT_PROJECT.title,
-        courseTitle:
-          DEFAULT_PROJECT.courseTitle ||
-          "เทคโนโลยีปัญญาประดิษฐ์และการประยุกต์ใช้ในงานภาครัฐ (Generative AI in Practice)",
-        instructors: DEFAULT_PROJECT.instructors,
-        department: DEFAULT_PROJECT.department,
-        dateDisplay: "15 - 17 พฤษภาคม 2567",
-        venue: DEFAULT_PROJECT.venue,
-        targetAttendees: DEFAULT_PROJECT.targetAttendees || 150,
-        enableSection1: true,
-        section1Title: DEFAULT_SECTION1_TITLE,
-        respondentNameLabel: DEFAULT_RESPONDENT_NAME_LABEL,
-        respondentNamePlaceholder: DEFAULT_RESPONDENT_NAME_PLACEHOLDER,
-        respondentNameRequired: true,
-        enableGovId: true,
-        govIdLabel: DEFAULT_GOV_ID_LABEL,
-        govIdPlaceholder: DEFAULT_GOV_ID_PLACEHOLDER,
-        govIdRequired: false,
-        demographicCustomFields: [],
-        questions: [...EVALUATION_QUESTIONS],
-        enableSection3: true,
-        section3Title: DEFAULT_SECTION3_TITLE,
-        feedbackItems: [...DEFAULT_FEEDBACK_ITEMS],
-        enableSection4: true,
-        section4Title: DEFAULT_SECTION4_TITLE,
-        section4Description: DEFAULT_SECTION4_DESCRIPTION,
-        section4Label: DEFAULT_SECTION4_LABEL,
-        section4HelperText: DEFAULT_SECTION4_HELPER_TEXT,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-    }
-  }
-
-  if (all.length > 0) {
-    return all[0];
-  }
-
-  // Fallback default questionnaire
+function getDefaultQuestionnaire(): Questionnaire {
+  const now = new Date().toISOString();
   return {
     id: DEFAULT_PROJECT.id,
     title: DEFAULT_PROJECT.title,
@@ -245,13 +145,34 @@ export async function getQuestionnaireById(id?: string | null): Promise<Question
     section4Description: DEFAULT_SECTION4_DESCRIPTION,
     section4Label: DEFAULT_SECTION4_LABEL,
     section4HelperText: DEFAULT_SECTION4_HELPER_TEXT,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: now,
+    updatedAt: now,
   };
 }
 
 /**
- * สร้างแบบสอบถามใหม่
+ * ดึงแบบสอบถามตาม ID (หากไม่ระบุ ID จะดึงแบบสอบถามล่าสุด หรือค่าเริ่มต้น)
+ */
+export async function getQuestionnaireById(id?: string | null): Promise<Questionnaire> {
+  const all = await getAllQuestionnaires();
+
+  if (id) {
+    const found = all.find((q) => q.id === id);
+    if (found) return found;
+    if (id === DEFAULT_PROJECT.id) {
+      return getDefaultQuestionnaire();
+    }
+  }
+
+  if (all.length > 0) {
+    return all[0];
+  }
+
+  return getDefaultQuestionnaire();
+}
+
+/**
+ * สร้างแบบสอบถามใหม่ ลงใน Cloudflare D1
  */
 export async function createQuestionnaire(data: {
   title: string;
@@ -354,29 +275,19 @@ export async function createQuestionnaire(data: {
     section4HelperText: newQnr.section4HelperText,
   };
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      await ensureTable(sql);
-      await sql`
+      await d1.prepare(`
         INSERT INTO questionnaires (
           id, title, course_title, instructors, department, date_display, venue, questions, extra_config, created_at, updated_at
-        ) VALUES (
-          ${newQnr.id},
-          ${newQnr.title},
-          ${newQnr.courseTitle},
-          ${newQnr.instructors},
-          ${newQnr.department},
-          ${newQnr.dateDisplay},
-          ${newQnr.venue},
-          ${JSON.stringify(newQnr.questions)}::jsonb,
-          ${JSON.stringify(extraConfig)}::jsonb,
-          ${now},
-          ${now}
-        );
-      `;
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `).bind(
+        newQnr.id, newQnr.title, newQnr.courseTitle, newQnr.instructors, newQnr.department, newQnr.dateDisplay, newQnr.venue,
+        JSON.stringify(newQnr.questions), JSON.stringify(extraConfig), now, now
+      ).run();
     } catch (err) {
-      console.error("Failed to insert questionnaire into Neon:", err);
+      console.error("Failed to insert questionnaire into D1:", err);
     }
   }
 
@@ -384,7 +295,7 @@ export async function createQuestionnaire(data: {
 }
 
 /**
- * แก้ไข/ปรับแต่งแบบสอบถามที่มีอยู่
+ * แก้ไข/ปรับแต่งแบบสอบถามที่มีอยู่ บน Cloudflare D1
  */
 export async function updateQuestionnaire(
   id: string,
@@ -442,10 +353,10 @@ export async function updateQuestionnaire(
     demographicCustomFields:
       data.demographicCustomFields !== undefined
         ? data.demographicCustomFields
-        : existing.demographicCustomFields || [],
+        : existing.demographicCustomFields,
     questions:
       data.questions !== undefined
-        ? data.questions.map((q, i) => ({ ...q, id: i + 1 }))
+        ? data.questions.map((q, qIdx) => ({ ...q, id: qIdx + 1 }))
         : existing.questions,
     enableSection3:
       data.enableSection3 !== undefined ? data.enableSection3 : existing.enableSection3 ?? true,
@@ -495,25 +406,19 @@ export async function updateQuestionnaire(
     section4HelperText: updated.section4HelperText,
   };
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      await ensureTable(sql);
-      await sql`
+      await d1.prepare(`
         UPDATE questionnaires SET
-          title = ${updated.title},
-          course_title = ${updated.courseTitle},
-          instructors = ${updated.instructors},
-          department = ${updated.department},
-          date_display = ${updated.dateDisplay},
-          venue = ${updated.venue},
-          questions = ${JSON.stringify(updated.questions)}::jsonb,
-          extra_config = ${JSON.stringify(extraConfig)}::jsonb,
-          updated_at = ${now}
-        WHERE id = ${id};
-      `;
+          title = ?, course_title = ?, instructors = ?, department = ?, date_display = ?, venue = ?, questions = ?, extra_config = ?, updated_at = ?
+        WHERE id = ?
+      `).bind(
+        updated.title, updated.courseTitle, updated.instructors, updated.department, updated.dateDisplay, updated.venue,
+        JSON.stringify(updated.questions), JSON.stringify(extraConfig), now, id
+      ).run();
     } catch (err) {
-      console.error("Failed to update questionnaire in Neon:", err);
+      console.error("Failed to update questionnaire in D1:", err);
     }
   }
 
@@ -521,19 +426,18 @@ export async function updateQuestionnaire(
 }
 
 /**
- * ลบแบบสอบถาม
+ * ลบแบบสอบถาม ออกจาก Cloudflare D1
  */
 export async function deleteQuestionnaire(id: string): Promise<boolean> {
   inMemoryQuestionnaires = inMemoryQuestionnaires.filter((q) => q.id !== id);
   invalidateQuestionnairesCache();
 
-  const sql = getNeonSql();
-  if (sql) {
+  const d1 = await getD1();
+  if (d1) {
     try {
-      await ensureTable(sql);
-      await sql`DELETE FROM questionnaires WHERE id = ${id};`;
+      await d1.prepare("DELETE FROM questionnaires WHERE id = ?").bind(id).run();
     } catch (err) {
-      console.error("Failed to delete questionnaire from Neon:", err);
+      console.error("Failed to delete questionnaire from D1:", err);
     }
   }
 

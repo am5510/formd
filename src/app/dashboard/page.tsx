@@ -81,8 +81,8 @@ export default function DashboardPage() {
   useEffect(() => {
     // 1. Fetch questionnaire list for selector dropdown
     fetch("/api/questionnaires")
-      .then((res) => res.json())
-      .then((data) => {
+      .then((res) => res.json() as any)
+      .then((data: any) => {
         if (Array.isArray(data.questionnaires)) {
           setQuestionnaires(data.questionnaires);
           try {
@@ -125,7 +125,7 @@ export default function DashboardPage() {
         : `/api/dashboard?cohortId=${selectedCohort}`;
       const res = await fetch(url);
       if (res.ok) {
-        const data = await res.json();
+        const data = (await res.json()) as any;
         setSummary(data);
         try {
           sessionStorage.setItem(cacheKey, JSON.stringify(data));
@@ -198,7 +198,7 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto px-4 py-24 text-center">
         <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         <p className="text-sm font-semibold text-primary">
-          กำลังประมวลผลข้อมูลสถิติจาก Neon Database...
+          กำลังประมวลผลข้อมูลสถิติจาก Cloudflare D1 Database...
         </p>
       </div>
     );

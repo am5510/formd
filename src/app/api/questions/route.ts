@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body = (await req.json()) as any;
 
     if (body.action === "reset") {
       const reset = await resetToDefaultQuestions(body.projectId || "PRJ-2567-TR048");
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
-    const body = await req.json();
+    const body = (await req.json()) as any;
     const { id, text, dimensionId } = body;
 
     if (!id || !text) {

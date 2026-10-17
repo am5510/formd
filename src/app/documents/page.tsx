@@ -33,7 +33,7 @@ export default function DocumentsPage() {
     try {
       const res = await fetch("/api/r2/files");
       if (res.ok) {
-        const data = await res.json();
+        const data = (await res.json()) as any;
         setFiles(data.files || []);
       }
     } catch (err) {

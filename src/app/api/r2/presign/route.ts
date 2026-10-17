@@ -4,7 +4,7 @@ import { generateR2PresignedUploadUrl } from "@/lib/r2/client";
 export async function POST(req: NextRequest) {
   try {
     const { fileName, fileType, category = "document", projectId = "PRJ-2567-TR048" } =
-      await req.json();
+      (await req.json()) as any;
 
     if (!fileName) {
       return NextResponse.json(

@@ -6,15 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "cloudflare-build": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion",
-    "preview": "npm run cloudflare-build && wrangler dev",
-    "deploy": "npm run cloudflare-build && wrangler deploy",
+    "preview:cloudflare": "npm run cloudflare-build && wrangler dev",
+    "deploy:cloudflare": "npm run cloudflare-build && wrangler deploy",
+    "d1:migrate:local": "wrangler d1 execute training-db --local --file=./src/lib/db/schema.d1.sql",
+    "d1:migrate:remote": "wrangler d1 execute training-db --remote --file=./src/lib/db/schema.d1.sql",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.750.0",
     "@aws-sdk/s3-request-presigner": "^3.750.0",
-    "@neondatabase/serverless": "^0.10.4",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
     "next": "^14.2.24",
@@ -24,6 +25,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261016.1",
     "@opennextjs/cloudflare": "^1.20.12",
     "@types/node": "^20.17.19",
     "@types/react": "^18.3.18",

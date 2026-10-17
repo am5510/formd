@@ -69,7 +69,7 @@ export default function FileUploader({
           throw new Error("ไม่สามารถสร้างลิงก์สำหรับอัปโหลด Cloudflare R2 ได้");
         }
 
-        const { uploadUrl, publicUrl, r2Key } = await presignRes.json();
+        const { uploadUrl, publicUrl, r2Key } = (await presignRes.json()) as any;
 
         // 2. อัปโหลดไฟล์ไปยัง URL ที่ได้รับ (Direct PUT หรือ fallback API)
         const uploadRes = await fetch(uploadUrl, {
