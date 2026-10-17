@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Typography Configuration:
+   - ตัวอักษรไทย: Noto Sans Thai (Unicode Range U+0E00-U+0E7F)
+   - ตัวอักษรอังกฤษ ตัวเลข เครื่องหมายสัญลักษณ์: Google Sans (Unicode Range U+0000-U+024F etc.)
+   ========================================================================== */
+
+/* 1. Google Sans - ภาษาอังกฤษ ตัวเลข และเครื่องหมายสัญลักษณ์ */
+@font-face {
+  font-family: 'GoogleSansLatin';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/googlesans/v71/4UasrENHsxJlGDuGo1OIlJfC6l_24rlCK1Yo_Iqcsih3SAyH6cAwhX9RPjIUvQ.woff2') format('woff2');
+  unicode-range: U+0000-024F, U+02C6-02DC, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F, U+2150-218F, U+2200-22FF, U+FB00-FB4F;
+}
+
+/* 2. Noto Sans Thai - ภาษาไทย สระ วรรณยุกต์ */
+@font-face {
+  font-family: 'NotoSansThaiPure';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/notosansthai/v29/iJWQBXeUZi_OHPqn4wq6hQ2_hbJ1xyN9wd43SofNWcdfKI2hX2g.woff2') format('woff2');
+  unicode-range: U+0E00-0E7F, U+200C-200D, U+25CC;
+}
+
+@layer base {
+  html,
+  body {
+    @apply bg-background text-on-surface antialiased;
+    font-family: 'GoogleSansLatin', 'NotoSansThaiPure', 'Google Sans', 'Noto Sans Thai', sans-serif;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font-family: 'GoogleSansLatin', 'NotoSansThaiPure', 'Google Sans', 'Noto Sans Thai', sans-serif;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre,
+  .font-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  }
+}
+
+/* Material Symbols icon helper */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+}
+
+/* Print optimizations for official PDF output */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .shadow-xs, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+
+  /* Prevent container overflow cutoff during print */
+  .overflow-x-auto, .overflow-y-auto, .overflow-hidden {
+    overflow: visible !important;
+  }
+
+  table {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    border-collapse: collapse !important;
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+
+  section {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  /* Force 3 columns for KPI summary cards in print */
+  .kpi-cards-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    width: 100% !important;
+  }
+
+  .kpi-cards-grid > div {
+    padding: 12px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    min-width: 0 !important;
+  }
+}
+

@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>แบบประเมินความพึงพอใจโครงการฝึกอบรม | Training Evaluation System</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#757682",
+            "tertiary-fixed-dim": "#6bd8cb",
+            "on-tertiary-fixed": "#00201d",
+            "inverse-surface": "#233144",
+            "on-primary": "#ffffff",
+            "surface-variant": "#d5e3fc",
+            "tertiary": "#00312c",
+            "outline-variant": "#c5c5d3",
+            "background": "#f8f9ff",
+            "on-secondary-container": "#fefcff",
+            "primary-container": "#1e3a8a",
+            "surface-container-low": "#eff4ff",
+            "error": "#ba1a1a",
+            "inverse-primary": "#b6c4ff",
+            "error-container": "#ffdad6",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-tertiary-container": "#4ebdb0",
+            "tertiary-container": "#004942",
+            "on-surface-variant": "#444651",
+            "primary-fixed-dim": "#b6c4ff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-background": "#0d1c2e",
+            "on-primary-container": "#90a8ff",
+            "primary-fixed": "#dce1ff",
+            "surface-dim": "#ccdbf3",
+            "secondary": "#0051d5",
+            "on-surface": "#0d1c2e",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "primary": "#00236f",
+            "on-primary-fixed-variant": "#264191",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#00164e",
+            "surface": "#f8f9ff",
+            "surface-container-highest": "#d5e3fc",
+            "secondary-fixed": "#dbe1ff",
+            "secondary-container": "#316bf3",
+            "surface-container": "#e6eeff",
+            "surface-container-high": "#dce9ff",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#89f5e7",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#005049",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#00174b",
+            "surface-tint": "#4059aa"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin": "2rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "label-sm": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "body-lg": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "headline-lg-mobile": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "headline-sm": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "body-md": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "body-sm": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "title-md": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "label-lg": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "display": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "label-md": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "headline-md": ["Sarabun", "Be Vietnam Pro", "sans-serif"],
+            "headline-lg": ["Sarabun", "Be Vietnam Pro", "sans-serif"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+            "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+            "display": ["44px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700"}]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      font-family: 'Sarabun', 'Be Vietnam Pro', sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .radio-score-input:checked + label {
+      background-color: #1e3a8a;
+      color: #ffffff;
+      border-color: #1e3a8a;
+      box-shadow: 0 0 0 1px #1e3a8a;
+    }
+    .radio-score-input:checked + label .score-dot {
+      background-color: #ffffff;
+      border-color: #1e3a8a;
+    }
+  </style>
+</head>
+<body class="min-h-full flex flex-col bg-background text-on-surface antialiased">
+<!-- ================= TOP NAV BAR (Shared Component) ================= -->
+<header class="w-full bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-margin flex items-center justify-between h-16">
+<!-- Logo & System Title -->
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-2xl">assured_workload</span>
+</div>
+<div>
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary tracking-tight block">
+            ระบบประเมินโครงการฝึกอบรม
+          </span>
+<span class="text-label-sm font-label-sm text-outline block leading-none">
+            Training Evaluation System • ภาครัฐและองค์กร
+          </span>
+</div>
+</div>
+<!-- Main Navigation Links -->
+<nav class="hidden md:flex items-center space-x-8 h-full">
+<!-- Active Tab: แบบประเมินความพึงพอใจ -->
+<a class="border-b-2 border-primary dark:border-inverse-primary text-primary dark:text-inverse-primary font-title-md py-4 flex items-center gap-2" href="#form-section">
+<span class="material-symbols-outlined text-lg">fact_check</span>
+<span>แบบประเมินความพึงพอใจ</span>
+</a>
+<!-- Inactive Tab: แดชบอร์ดสรุปผลรายงาน -->
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary font-body-md py-4 transition-colors flex items-center gap-2 group" href="#dashboard">
+<span class="material-symbols-outlined text-lg text-outline group-hover:text-primary">query_stats</span>
+<span>แดชบอร์ดสรุปผลรายงาน</span>
+<span class="bg-surface-container text-secondary text-label-sm px-2 py-0.5 rounded-full border border-outline-variant font-label-sm">
+            ดูรายงานสรุปผล
+          </span>
+</a>
+</nav>
+<!-- Action Cluster -->
+<div class="flex items-center space-x-3">
+<!-- Draft Action -->
+<button class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-outline-variant text-primary font-body-md bg-surface-container-lowest hover:bg-surface-container-low transition duration-150" type="button">
+<span class="material-symbols-outlined text-lg">bookmark_border</span>
+<span>บันทึกแบบร่าง</span>
+</button>
+<!-- Primary Action -->
+<button class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary-container text-on-primary font-label-lg shadow hover:bg-primary transition duration-150" type="button">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>ส่งออกรายงาน PDF/Excel</span>
+</button>
+<!-- Utility Icons -->
+<div class="flex items-center border-l border-outline-variant pl-3 space-x-1">
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition duration-150" title="การแจ้งเตือน" type="button">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition duration-150" title="คู่มือการใช้งาน" type="button">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+</button>
+<!-- User Avatar -->
+<div class="ml-2 flex items-center" title="รูปประจำตัวผู้ใช้งานระบบและผู้ดูแลโครงการ">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="Official portrait photograph of a Thai civil service training administrator, dressed in formal navy institutional attire, natural warm office ambient light, professional headshot with clean corporate bokeh background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUuVtLE713ShoRhltPhB8xL8e2XpNmR0jkaJXFr7bzKuUl7AjDpUzPUubOKv7bVhuZ5hDs97mSYGGe68_Qg2l9s3GKwOIciDQXm-MMBE8_UB66pxUh65w9ubP6tMt9XoPh196dRfDKykKeW3UrwN2wou5vk9900dccoH58MbakNFT3qLmmJ7pzxk67KlTpPrQo-YtqQLcBCAYF-XXSML2mezZval7C5e-QbCZ8w-q_MXpLk5LOkXObXQ"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= MAIN CONTENT ================= -->
+<main class="flex-1 max-w-7xl mx-auto w-full px-margin py-space-xl" id="form-section">
+<!-- Top Progress Indicator Banner -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md mb-space-lg flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">assignment</span>
+</div>
+<div>
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline block">Official Questionnaire • แบบประเมินราชการ</span>
+<h1 class="text-headline-sm font-headline-sm text-primary">แบบประเมินความพึงพอใจโครงการฝึกอบรม</h1>
+</div>
+</div>
+<div class="flex items-center gap-4 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+          ความคืบหน้า: <strong class="text-primary font-title-md" id="progress-percent">0 / 20 ข้อ (0%)</strong>
+</span>
+<div class="w-36 h-2.5 bg-surface-container rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary-container rounded-full transition-all duration-300 w-0" id="progress-bar-fill"></div>
+</div>
+</div>
+</div>
+<!-- 1. PROJECT HEADER DETAILS CARD -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-xl shadow-sm">
+<div class="border-b border-outline-variant pb-space-md mb-space-md flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">folder_open</span>
+<h2 class="text-title-lg font-title-lg text-primary">ข้อมูลโครงการฝึกอบรมที่รับการประเมิน</h2>
+</div>
+<span class="bg-surface-container-high text-on-primary-fixed-variant text-label-sm font-label-sm px-2.5 py-1 rounded">
+          รหัสเอกสาร: DHR-TR-2567-0042
+        </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Project Name (Full col on small, spans 2 on lg) -->
+<div class="lg:col-span-2 bg-surface-container-low p-space-md rounded-lg border border-outline-variant">
+<label class="block text-label-sm font-label-sm text-outline mb-1">
+<span class="material-symbols-outlined text-sm mr-1">school</span> โครงการฝึกอบรม
+          </label>
+<div class="text-body-md font-body-md font-semibold text-primary">
+            โครงการพัฒนาทักษะดิจิทัลและการบริหารจัดการภาครัฐสู่ยุคปัญญาประดิษฐ์ (AI for Public Sector)
+          </div>
+</div>
+<!-- Agency / Department -->
+<div class="bg-surface-container-low p-space-md rounded-lg border border-outline-variant">
+<label class="block text-label-sm font-label-sm text-outline mb-1">
+<span class="material-symbols-outlined text-sm mr-1">corporate_fare</span> หน่วยงานผู้จัด
+          </label>
+<div class="text-body-md font-body-md font-semibold text-on-surface">
+            กองยุทธศาสตร์และพัฒนาทรัพยากรบุคคล
+          </div>
+</div>
+<!-- Dates & Venue -->
+<div class="bg-surface-container-low p-space-md rounded-lg border border-outline-variant">
+<label class="block text-label-sm font-label-sm text-outline mb-1">
+<span class="material-symbols-outlined text-sm mr-1">calendar_month</span> วันที่และสถานที่จัด
+          </label>
+<div class="text-body-md font-body-md font-semibold text-on-surface">
+            15 - 17 พฤษภาคม 2567
+          </div>
+<div class="text-body-sm font-body-sm text-on-surface-variant truncate" title="ห้องประชุมจิตรลดา โรงแรมเซ็นทารา แกรนด์ กรุงเทพฯ">
+            ห้องประชุมจิตรลดา โรงแรมเซ็นทารา แกรนด์ฯ
+          </div>
+</div>
+</div>
+<!-- Formal Instruction Notice Box -->
+<div class="bg-surface-container-high border-l-4 border-secondary p-space-md rounded-r-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-2xl mt-0.5">info</span>
+<div>
+<h3 class="text-label-lg font-label-lg text-primary font-bold">คำชี้แจงในการตอบแบบประเมิน</h3>
+<p class="text-body-md font-body-md text-on-surface mt-0.5 leading-relaxed">
+            คำชี้แจง: โปรดทำเครื่องหมาย ✓ ลงในช่องระดับความพึงพอใจที่ตรงกับความคิดเห็นของท่านมากที่สุด ข้อมูลที่ได้รับจะนำไปใช้ในการปรับปรุงและพัฒนาการจัดโครงการฝึกอบรมให้มีประสิทธิภาพยิ่งขึ้น
+          </p>
+</div>
+</div>
+</section>
+<!-- 2. SECTION 1: RESPONDENT DEMOGRAPHICS -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-xl shadow-sm">
+<div class="flex items-center gap-2 pb-space-sm border-b border-outline-variant mb-space-md">
+<span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-label-md">1</span>
+<h2 class="text-title-lg font-title-lg text-primary">ส่วนที่ 1 ข้อมูลทั่วไปของผู้ตอบแบบประเมิน</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Field 1: Full Name -->
+<div class="lg:col-span-2">
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="resp_fullname">
+            ชื่อ – นามสกุล <span class="text-error">*</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-xl">person</span>
+<input class="w-full pl-10 pr-3 py-2 text-body-md font-body-md border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="resp_fullname" placeholder="ตัวอย่าง: นายสมศักดิ์ ภักดีชน / นางสาวนภาพร สุขสมบูรณ์" type="text"/>
+</div>
+</div>
+<!-- Field 2: Civil Servant ID -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="resp_gov_id">
+            รหัสราชการ (ถ้ามี)
+          </label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-xl">badge</span>
+<input class="w-full pl-10 pr-3 py-2 text-body-md font-body-md border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="resp_gov_id" placeholder="เช่น 9-XXXX-XXXXX-XX-X" type="text"/>
+</div>
+</div>
+<!-- Field 3: Position / Level -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="resp_position">
+            ตำแหน่ง / ระดับปฏิบัติงาน
+          </label>
+<select class="w-full py-2 px-3 text-body-md font-body-md border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary" id="resp_position">
+<option value="">-- โปรดเลือกประเภทตำแหน่ง --</option>
+<option value="1">ประเภทวิชาการ (ปฏิบัติการ / ชำนาญการ / ชำนาญการพิเศษ)</option>
+<option value="2">ประเภททั่วไป (ปฏิบัติงาน / ชำนาญงาน / อาวุโส)</option>
+<option value="3">ประเภทอำนวยการ / บริหารระดับต้น-สูง</option>
+<option value="4">พนักงานราชการ / เจ้าหน้าที่องค์กรของรัฐ</option>
+<option value="5">บุคลากรภาคเอกชน / ผู้สังเกตการณ์อิสระ</option>
+</select>
+</div>
+</div>
+<!-- Government ID Helper Note -->
+<div class="mt-space-sm flex items-center gap-1.5 text-outline">
+<span class="material-symbols-outlined text-base">info</span>
+<span class="text-body-sm font-body-sm">
+          หมายเหตุ: การระบุรหัสราชการเป็นข้อมูลทางเลือก สามารถเว้นว่างได้
+        </span>
+</div>
+</section>
+<!-- 3. SECTION 2: SATISFACTION EVALUATION MATRIX (20 QUESTIONS) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-xl shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between pb-space-md border-b border-outline-variant mb-space-md gap-4">
+<div class="flex items-center gap-2">
+<span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-label-md">2</span>
+<div>
+<h2 class="text-title-lg font-title-lg text-primary">ส่วนที่ 2 การประเมินความพึงพอใจต่อโครงการ</h2>
+<p class="text-body-sm font-body-sm text-outline">ตารางระดับความพึงพอใจ • โปรดเลือกคะแนนเพียง 1 ระดับในแต่ละข้อ</p>
+</div>
+</div>
+<!-- Scoring Legend (Clear 1-5 scale) -->
+<div class="bg-surface-container-low border border-outline-variant p-2.5 rounded-lg flex flex-wrap items-center gap-3 text-body-sm font-body-sm">
+<span class="text-label-md font-label-md text-primary font-bold">เกณฑ์คะแนน:</span>
+<span class="inline-flex items-center gap-1"><strong class="w-5 h-5 rounded bg-primary text-on-primary text-center leading-5 text-label-sm">5</strong> พึงพอใจมากที่สุด</span>
+<span class="inline-flex items-center gap-1"><strong class="w-5 h-5 rounded bg-secondary-container text-on-primary text-center leading-5 text-label-sm">4</strong> พึงพอใจมาก</span>
+<span class="inline-flex items-center gap-1"><strong class="w-5 h-5 rounded bg-surface-container-highest text-on-surface text-center leading-5 text-label-sm">3</strong> พึงพอใจปานกลาง</span>
+<span class="inline-flex items-center gap-1"><strong class="w-5 h-5 rounded bg-surface-container text-on-surface text-center leading-5 text-label-sm">2</strong> พึงพอใจน้อย</span>
+<span class="inline-flex items-center gap-1"><strong class="w-5 h-5 rounded bg-error-container text-on-error-container text-center leading-5 text-label-sm">1</strong> พึงพอใจน้อยที่สุด</span>
+</div>
+</div>
+<!-- Satisfaction Matrix Table Container -->
+<div class="overflow-x-auto border border-outline-variant rounded-lg">
+<table class="w-full text-left border-collapse min-w-[760px]">
+<thead>
+<tr class="bg-surface-container-low border-b-2 border-outline-variant text-on-surface">
+<th class="py-3 px-4 w-16 text-center text-label-md font-label-md" scope="col">ลำดับ</th>
+<th class="py-3 px-4 text-label-md font-label-md" scope="col">รายการประเมิน</th>
+<th class="py-3 px-3 w-20 text-center text-label-md font-label-md bg-surface-container" scope="col">
+<span class="block text-primary font-bold text-sm">5</span>
+<span class="text-label-sm font-normal text-outline">มากที่สุด</span>
+</th>
+<th class="py-3 px-3 w-20 text-center text-label-md font-label-md" scope="col">
+<span class="block text-primary font-bold text-sm">4</span>
+<span class="text-label-sm font-normal text-outline">มาก</span>
+</th>
+<th class="py-3 px-3 w-20 text-center text-label-md font-label-md" scope="col">
+<span class="block text-primary font-bold text-sm">3</span>
+<span class="text-label-sm font-normal text-outline">ปานกลาง</span>
+</th>
+<th class="py-3 px-3 w-20 text-center text-label-md font-label-md" scope="col">
+<span class="block text-primary font-bold text-sm">2</span>
+<span class="text-label-sm font-normal text-outline">น้อย</span>
+</th>
+<th class="py-3 px-3 w-20 text-center text-label-md font-label-md" scope="col">
+<span class="block text-primary font-bold text-sm">1</span>
+<span class="text-label-sm font-normal text-outline">น้อยที่สุด</span>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/60 text-body-md font-body-md">
+<!-- 2.1 ด้านเนื้อหาและหลักสูตรการฝึกอบรม -->
+<tr class="bg-surface-container-high/70 text-primary font-title-md">
+<td class="py-2.5 px-4 font-bold tracking-wide" colspan="7">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">menu_book</span>
+<span>2.1 ด้านเนื้อหาและหลักสูตรการฝึกอบรม</span>
+</div>
+</td>
+</tr>
+<!-- ข้อ 1 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">1</td>
+<td class="py-3 px-4 text-on-surface">เนื้อหาตรงกับวัตถุประสงค์ของโครงการ</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q1_5" name="q1" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q1_4" name="q1" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q1_3" name="q1" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q1_2" name="q1" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q1_1" name="q1" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 2 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">2</td>
+<td class="py-3 px-4 text-on-surface">เนื้อหามีความเหมาะสมและทันสมัย</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q2_5" name="q2" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q2_4" name="q2" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q2_3" name="q2" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q2_2" name="q2" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q2_1" name="q2" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 3 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">3</td>
+<td class="py-3 px-4 text-on-surface">เนื้อหาสามารถนำไปประยุกต์ใช้ในการปฏิบัติงานได้</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q3_5" name="q3" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q3_4" name="q3" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q3_3" name="q3" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q3_2" name="q3" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q3_1" name="q3" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 4 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">4</td>
+<td class="py-3 px-4 text-on-surface">ระยะเวลาในการฝึกอบรมมีความเหมาะสม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q4_5" name="q4" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q4_4" name="q4" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q4_3" name="q4" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q4_2" name="q4" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q4_1" name="q4" type="radio" value="1"/>
+</td>
+</tr>
+<!-- 2.2 ด้านวิทยากร -->
+<tr class="bg-surface-container-high/70 text-primary font-title-md">
+<td class="py-2.5 px-4 font-bold tracking-wide" colspan="7">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">record_voice_over</span>
+<span>2.2 ด้านวิทยากร</span>
+</div>
+</td>
+</tr>
+<!-- ข้อ 5 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">5</td>
+<td class="py-3 px-4 text-on-surface">วิทยากรมีความรู้และความเชี่ยวชาญในหัวข้อที่บรรยาย</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q5_5" name="q5" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q5_4" name="q5" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q5_3" name="q5" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q5_2" name="q5" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q5_1" name="q5" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 6 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">6</td>
+<td class="py-3 px-4 text-on-surface">วิทยากรสามารถถ่ายทอดความรู้ได้อย่างชัดเจน</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q6_5" name="q6" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q6_4" name="q6" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q6_3" name="q6" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q6_2" name="q6" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q6_1" name="q6" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 7 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">7</td>
+<td class="py-3 px-4 text-on-surface">วิทยากรเปิดโอกาสให้ซักถามและแลกเปลี่ยนความคิดเห็น</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q7_5" name="q7" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q7_4" name="q7" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q7_3" name="q7" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q7_2" name="q7" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q7_1" name="q7" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 8 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">8</td>
+<td class="py-3 px-4 text-on-surface">วิทยากรใช้เทคนิคการถ่ายทอดความรู้ได้อย่างน่าสนใจ</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q8_5" name="q8" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q8_4" name="q8" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q8_3" name="q8" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q8_2" name="q8" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q8_1" name="q8" type="radio" value="1"/>
+</td>
+</tr>
+<!-- 2.3 ด้านการจัดโครงการ -->
+<tr class="bg-surface-container-high/70 text-primary font-title-md">
+<td class="py-2.5 px-4 font-bold tracking-wide" colspan="7">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">event_available</span>
+<span>2.3 ด้านการจัดโครงการ</span>
+</div>
+</td>
+</tr>
+<!-- ข้อ 9 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">9</td>
+<td class="py-3 px-4 text-on-surface">การประชาสัมพันธ์และแจ้งข้อมูลโครงการมีความชัดเจน</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q9_5" name="q9" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q9_4" name="q9" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q9_3" name="q9" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q9_2" name="q9" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q9_1" name="q9" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 10 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">10</td>
+<td class="py-3 px-4 text-on-surface">การลงทะเบียนและการอำนวยความสะดวกมีความเหมาะสม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q10_5" name="q10" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q10_4" name="q10" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q10_3" name="q10" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q10_2" name="q10" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q10_1" name="q10" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 11 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">11</td>
+<td class="py-3 px-4 text-on-surface">การบริหารจัดการและการดำเนินโครงการเป็นไปอย่างเป็นระบบ</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q11_5" name="q11" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q11_4" name="q11" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q11_3" name="q11" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q11_2" name="q11" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q11_1" name="q11" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 12 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">12</td>
+<td class="py-3 px-4 text-on-surface">เอกสารประกอบการฝึกอบรมมีความเหมาะสมและเป็นประโยชน์</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q12_5" name="q12" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q12_4" name="q12" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q12_3" name="q12" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q12_2" name="q12" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q12_1" name="q12" type="radio" value="1"/>
+</td>
+</tr>
+<!-- 2.4 ด้านสถานที่และสิ่งอำนวยความสะดวก -->
+<tr class="bg-surface-container-high/70 text-primary font-title-md">
+<td class="py-2.5 px-4 font-bold tracking-wide" colspan="7">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">apartment</span>
+<span>2.4 ด้านสถานที่และสิ่งอำนวยความสะดวก</span>
+</div>
+</td>
+</tr>
+<!-- ข้อ 13 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">13</td>
+<td class="py-3 px-4 text-on-surface">สถานที่จัดฝึกอบรมมีความเหมาะสม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q13_5" name="q13" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q13_4" name="q13" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q13_3" name="q13" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q13_2" name="q13" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q13_1" name="q13" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 14 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">14</td>
+<td class="py-3 px-4 text-on-surface">อุปกรณ์และระบบโสตทัศนูปกรณ์มีความพร้อม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q14_5" name="q14" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q14_4" name="q14" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q14_3" name="q14" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q14_2" name="q14" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q14_1" name="q14" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 15 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">15</td>
+<td class="py-3 px-4 text-on-surface">อาหาร เครื่องดื่ม และสิ่งอำนวยความสะดวกมีความเหมาะสม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q15_5" name="q15" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q15_4" name="q15" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q15_3" name="q15" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q15_2" name="q15" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q15_1" name="q15" type="radio" value="1"/>
+</td>
+</tr>
+<!-- 2.5 ด้านผลสัมฤทธิ์และความคุ้มค่า -->
+<tr class="bg-surface-container-high/70 text-primary font-title-md">
+<td class="py-2.5 px-4 font-bold tracking-wide" colspan="7">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">trending_up</span>
+<span>2.5 ด้านผลสัมฤทธิ์และความคุ้มค่า</span>
+</div>
+</td>
+</tr>
+<!-- ข้อ 16 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">16</td>
+<td class="py-3 px-4 text-on-surface">ท่านได้รับความรู้และทักษะเพิ่มขึ้นจากการฝึกอบรม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q16_5" name="q16" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q16_4" name="q16" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q16_3" name="q16" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q16_2" name="q16" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q16_1" name="q16" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 17 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">17</td>
+<td class="py-3 px-4 text-on-surface">ท่านสามารถนำความรู้ไปใช้ในการปฏิบัติงานได้</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q17_5" name="q17" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q17_4" name="q17" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q17_3" name="q17" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q17_2" name="q17" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q17_1" name="q17" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 18 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">18</td>
+<td class="py-3 px-4 text-on-surface">โครงการบรรลุวัตถุประสงค์ที่กำหนดไว้</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q18_5" name="q18" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q18_4" name="q18" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q18_3" name="q18" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q18_2" name="q18" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q18_1" name="q18" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 19 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">19</td>
+<td class="py-3 px-4 text-on-surface">ท่านมีความพึงพอใจต่อโครงการฝึกอบรมโดยภาพรวม</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q19_5" name="q19" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q19_4" name="q19" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q19_3" name="q19" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q19_2" name="q19" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q19_1" name="q19" type="radio" value="1"/>
+</td>
+</tr>
+<!-- ข้อ 20 -->
+<tr class="hover:bg-surface-container-low transition duration-100">
+<td class="py-3 px-4 text-center text-outline font-medium">20</td>
+<td class="py-3 px-4 text-on-surface">ท่านเห็นว่าโครงการนี้มีประโยชน์และควรจัดต่อเนื่อง</td>
+<td class="py-2 px-2 text-center bg-surface-container/30">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q20_5" name="q20" type="radio" value="5"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q20_4" name="q20" type="radio" value="4"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q20_3" name="q20" type="radio" value="3"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q20_2" name="q20" type="radio" value="2"/>
+</td>
+<td class="py-2 px-2 text-center">
+<input class="w-5 h-5 text-primary border-outline focus:ring-secondary cursor-pointer matrix-input" id="q20_1" name="q20" type="radio" value="1"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 4. SECTION 3: QUALITATIVE RECOMMENDATIONS (4 TEXTAREAS) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg mb-space-xl shadow-sm">
+<div class="flex items-center gap-2 pb-space-sm border-b border-outline-variant mb-space-md">
+<span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-label-md">3</span>
+<h2 class="text-title-lg font-title-lg text-primary">ส่วนที่ 3 ข้อเสนอแนะเพิ่มเติม</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Question 1 -->
+<div class="bg-surface-container-low/40 p-space-md rounded-lg border border-outline-variant">
+<label class="block text-body-md font-body-md font-semibold text-on-surface mb-2 flex items-center gap-2" for="feedback_strength">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            1. สิ่งที่ท่านประทับใจหรือเห็นว่าเป็นจุดเด่นของโครงการ
+          </label>
+<div class="relative">
+<textarea class="w-full text-body-md font-body-md p-3 border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary resize-none" id="feedback_strength" placeholder="ระบุสิ่งที่ประทับใจ เช่น เนื้อหาทันสมัย วิทยากรถ่ายทอดได้เข้าใจง่าย หรือการบริหารจัดการโครงการ..." rows="4"></textarea>
+<div class="text-right text-label-sm font-label-sm text-outline mt-1">สูงสุด 500 ตัวอักษร</div>
+</div>
+</div>
+<!-- Question 2 -->
+<div class="bg-surface-container-low/40 p-space-md rounded-lg border border-outline-variant">
+<label class="block text-body-md font-body-md font-semibold text-on-surface mb-2 flex items-center gap-2" for="feedback_improve">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            2. สิ่งที่ควรปรับปรุงในการจัดโครงการครั้งต่อไป
+          </label>
+<div class="relative">
+<textarea class="w-full text-body-md font-body-md p-3 border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary resize-none" id="feedback_improve" placeholder="ระบุสิ่งที่ควรปรับปรุง เช่น การจัดสรรเวลา การเพิ่มช่วงฝึกปฏิบัติ หรือความสะดวกของระบบเทคโนโลยี..." rows="4"></textarea>
+<div class="text-right text-label-sm font-label-sm text-outline mt-1">สูงสุด 500 ตัวอักษร</div>
+</div>
+</div>
+<!-- Question 3 -->
+<div class="bg-surface-container-low/40 p-space-md rounded-lg border border-outline-variant">
+<label class="block text-body-md font-body-md font-semibold text-on-surface mb-2 flex items-center gap-2" for="feedback_topics">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            3. หัวข้อการฝึกอบรมที่ท่านสนใจในอนาคต
+          </label>
+<div class="relative">
+<textarea class="w-full text-body-md font-body-md p-3 border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary resize-none" id="feedback_topics" placeholder="ระบุหัวข้อที่ต้องการเรียนรู้เพิ่มเติม เช่น Prompt Engineering ขั้นสูง, Data Governance ภาครัฐ, Cyber Security..." rows="4"></textarea>
+<div class="text-right text-label-sm font-label-sm text-outline mt-1">สูงสุด 500 ตัวอักษร</div>
+</div>
+</div>
+<!-- Question 4 -->
+<div class="bg-surface-container-low/40 p-space-md rounded-lg border border-outline-variant">
+<label class="block text-body-md font-body-md font-semibold text-on-surface mb-2 flex items-center gap-2" for="feedback_others">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            4. ข้อเสนอแนะอื่น ๆ
+          </label>
+<div class="relative">
+<textarea class="w-full text-body-md font-body-md p-3 border border-outline-variant rounded-lg bg-surface-container-lowest focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary resize-none" id="feedback_others" placeholder="ข้อเสนอแนะเพิ่มเติมเกี่ยวกับการบริการ สถานที่ อาหาร หรือคำแนะนำทั่วไป..." rows="4"></textarea>
+<div class="text-right text-label-sm font-label-sm text-outline mt-1">สูงสุด 500 ตัวอักษร</div>
+</div>
+</div>
+</div>
+<!-- Official Appreciation & Verification Notice -->
+<div class="mt-space-lg pt-space-md border-t border-outline-variant text-center">
+<div class="inline-flex items-center gap-2 text-primary font-title-md font-semibold">
+<span class="material-symbols-outlined text-secondary">sentiment_very_satisfied</span>
+<span>ขอขอบคุณทุกท่านที่ให้ความร่วมมือในการตอบแบบประเมิน</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mt-1">
+          ความคิดเห็นอันทรงคุณค่าของท่านคือหัวใจสำคัญในการยกระดับมาตรฐานการฝึกอบรมบุคลากรภาครัฐอย่างต่อเนื่อง
+        </p>
+</div>
+<!-- Action Buttons Bar -->
+<div class="mt-space-lg flex flex-col sm:flex-row items-center justify-between gap-4 bg-surface-container-low p-space-md rounded-xl border border-outline-variant">
+<!-- Left: Quick Navigation to Dashboard -->
+<a class="inline-flex items-center gap-2 text-primary font-label-lg hover:text-secondary group transition-colors" href="#dashboard">
+<span>ดูผลลัพธ์และสถิติภาพรวม (Dashboard)</span>
+<span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+<!-- Right: Action Buttons -->
+<div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+<button class="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-outline-variant bg-surface-container-lowest text-primary font-title-md hover:bg-surface-container-high transition duration-150 flex items-center justify-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-xl">save</span>
+<span>บันทึกแบบร่าง</span>
+</button>
+<button class="w-full sm:w-auto px-7 py-2.5 rounded-lg bg-primary text-on-primary font-title-md font-bold hover:bg-primary-container shadow-md hover:shadow transition duration-150 flex items-center justify-center gap-2" id="submit-btn" type="button">
+<span class="material-symbols-outlined text-xl">send</span>
+<span>ส่งแบบประเมินความพึงพอใจ</span>
+</button>
+</div>
+</div>
+</section>
+<!-- LIVE DASHBOARD PREVIEW STRIP (Bento Grid Style) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm" id="dashboard">
+<div class="flex items-center justify-between border-b border-outline-variant pb-space-md mb-space-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h2 class="text-title-lg font-title-lg text-primary">แดชบอร์ดสรุปผลรายงานภาพรวม (Live Aggregate Preview)</h2>
+</div>
+<span class="bg-surface-container text-secondary text-label-sm px-2.5 py-1 rounded border border-outline-variant font-label-sm">
+          อัปเดตแบบเรียลไทม์ • Response Rate: 94.2%
+        </span>
+</div>
+<!-- Bento Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<!-- Metric 1: Mean Score -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md hover:border-secondary transition">
+<div class="flex items-center justify-between text-outline text-label-md uppercase mb-2">
+<span>คะแนนเฉลี่ยรวมทุกด้าน</span>
+<span class="material-symbols-outlined text-primary text-lg">star</span>
+</div>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">4.82 <span class="text-body-md font-normal text-outline">/ 5.00</span></div>
+<div class="mt-2 inline-flex items-center gap-1 text-label-sm text-tertiary-container bg-surface-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>สูงกว่าเป้าหมายเกณฑ์มาตรฐาน (+6.4%)</span>
+</div>
+</div>
+<!-- Metric 2: Content & Curriculum -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md hover:border-secondary transition">
+<div class="flex items-center justify-between text-outline text-label-md uppercase mb-2">
+<span>2.1 ด้านเนื้อหาและหลักสูตร</span>
+<span class="material-symbols-outlined text-primary text-lg">menu_book</span>
+</div>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">4.78 <span class="text-body-md font-normal text-outline">/ 5.00</span></div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-3">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 95.6%"></div>
+</div>
+</div>
+<!-- Metric 3: Speaker Quality -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md hover:border-secondary transition">
+<div class="flex items-center justify-between text-outline text-label-md uppercase mb-2">
+<span>2.2 ด้านวิทยากรผู้บรรยาย</span>
+<span class="material-symbols-outlined text-primary text-lg">record_voice_over</span>
+</div>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">4.91 <span class="text-body-md font-normal text-outline">/ 5.00</span></div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-3">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 98.2%"></div>
+</div>
+</div>
+<!-- Metric 4: Total Submissions -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-space-md hover:border-secondary transition">
+<div class="flex items-center justify-between text-outline text-label-md uppercase mb-2">
+<span>จำนวนผู้ตอบแบบประเมิน</span>
+<span class="material-symbols-outlined text-primary text-lg">groups</span>
+</div>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">142 <span class="text-body-md font-normal text-outline">/ 150 คน</span></div>
+<div class="mt-2 text-label-sm text-outline">
+            คงเหลือเพียง 8 ท่าน (คิดเป็น 5.8%)
+          </div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= INSTITUTIONAL FOOTER (Shared Component) ================= -->
+<footer class="w-full border-t border-outline-variant bg-surface-container dark:bg-inverse-surface mt-space-xl">
+<div class="max-w-7xl mx-auto px-margin py-space-lg flex flex-col md:flex-row justify-between items-center gap-space-md">
+<!-- Copyright text exact from JSON -->
+<div class="text-center md:text-left">
+<span class="text-label-lg font-label-lg font-bold text-on-surface dark:text-inverse-on-surface block mb-1">
+          ระบบประเมินโครงการฝึกอบรมภาครัฐและองค์กร
+        </span>
+<p class="text-body-sm font-body-sm text-on-surface-variant dark:text-surface-variant">
+          © 2567 สถาบันพัฒนาและฝึกอบรมบุคลากรภาครัฐและองค์กร. สงวนลิขสิทธิ์ตามกฎหมาย.
+        </p>
+</div>
+<!-- Footer Navigation Links verbatim -->
+<nav class="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary text-body-sm font-body-sm transition duration-150" href="#guide">
+          คู่มือการใช้งานระบบ
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary text-body-sm font-body-sm transition duration-150" href="#criteria">
+          เกณฑ์การวัดผล 5 ด้าน
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary text-body-sm font-body-sm transition duration-150" href="#contact">
+          ติดต่อผู้ดูแลระบบ
+        </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary text-body-sm font-body-sm transition duration-150" href="#pdpa">
+          นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)
+        </a>
+</nav>
+</div>
+</footer>
+<!-- Interactive JavaScript for Progress Counting & Smooth Experience -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('.matrix-input');
+      const progressText = document.getElementById('progress-percent');
+      const progressBar = document.getElementById('progress-bar-fill');
+      const submitBtn = document.getElementById('submit-btn');
+
+      function updateProgress() {
+        const answeredQuestions = new Set();
+        inputs.forEach(input => {
+          if (input.checked) {
+            answeredQuestions.add(input.name);
+          }
+        });
+
+        const count = answeredQuestions.size;
+        const total = 20;
+        const percentage = Math.round((count / total) * 100);
+
+        if (progressText && progressBar) {
+          progressText.innerText = `${count} / ${total} ข้อ (${percentage}%)`;
+          progressBar.style.width = `${percentage}%`;
+        }
+      }
+
+      inputs.forEach(input => {
+        input.addEventListener('change', updateProgress);
+      });
+
+      if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+          const answered = new Set();
+          inputs.forEach(i => { if (i.checked) answered.add(i.name); });
+          
+          if (answered.size < 20) {
+            alert(`ท่านตอบแบบประเมินไปแล้ว ${answered.size} จาก 20 ข้อ\nโปรดตรวจสอบและตอบให้ครบทุกข้อก่อนทำการส่งข้อมูลอย่างเป็นทางการ`);
+          } else {
+            alert('ระบบได้รับข้อมูลแบบประเมินความพึงพอใจของท่านเรียบร้อยแล้ว\nขอขอบพระคุณสำหรับความร่วมมือในการพัฒนาองค์กร');
+          }
+        });
+      }
+    });
+  </script>
+</body></html>

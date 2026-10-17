@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>แดชบอร์ดสรุปผลรายงานแบบประเมินความพึงพอใจโครงการฝึกอบรม</title>
+<!-- Google Fonts: Be Vietnam Pro & Sarabun for Thai Administrative Clarity -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Sarabun:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "outline": "#757682",
+            "tertiary-fixed-dim": "#6bd8cb",
+            "on-tertiary-fixed": "#00201d",
+            "inverse-surface": "#233144",
+            "on-primary": "#ffffff",
+            "surface-variant": "#d5e3fc",
+            "tertiary": "#00312c",
+            "outline-variant": "#c5c5d3",
+            "background": "#f8f9ff",
+            "on-secondary-container": "#fefcff",
+            "primary-container": "#1e3a8a",
+            "surface-container-low": "#eff4ff",
+            "error": "#ba1a1a",
+            "inverse-primary": "#b6c4ff",
+            "error-container": "#ffdad6",
+            "secondary-fixed-dim": "#b4c5ff",
+            "on-tertiary-container": "#4ebdb0",
+            "tertiary-container": "#004942",
+            "on-surface-variant": "#444651",
+            "primary-fixed-dim": "#b6c4ff",
+            "inverse-on-surface": "#eaf1ff",
+            "on-background": "#0d1c2e",
+            "on-primary-container": "#90a8ff",
+            "primary-fixed": "#dce1ff",
+            "surface-dim": "#ccdbf3",
+            "secondary": "#0051d5",
+            "on-surface": "#0d1c2e",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary-fixed-variant": "#003ea8",
+            "primary": "#00236f",
+            "on-primary-fixed-variant": "#264191",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#00164e",
+            "surface": "#f8f9ff",
+            "surface-container-highest": "#d5e3fc",
+            "secondary-fixed": "#dbe1ff",
+            "secondary-container": "#316bf3",
+            "surface-container": "#e6eeff",
+            "surface-container-high": "#dce9ff",
+            "on-error-container": "#93000a",
+            "surface-bright": "#f8f9ff",
+            "tertiary-fixed": "#89f5e7",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#005049",
+            "on-tertiary": "#ffffff",
+            "on-secondary-fixed": "#00174b",
+            "surface-tint": "#4059aa"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin": "2rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "title-lg": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "label-sm": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "body-lg": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "headline-lg-mobile": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "headline-sm": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "body-md": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "body-sm": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "title-md": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "label-lg": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "display": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "label-md": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "headline-md": ["Be Vietnam Pro", "Sarabun", "sans-serif"],
+            "headline-lg": ["Be Vietnam Pro", "Sarabun", "sans-serif"]
+          },
+          "fontSize": {
+            "title-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "display": ["44px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md text-body-md min-h-screen flex flex-col selection:bg-surface-variant selection:text-primary">
+<!-- TopNavBar (Shared Component from JSON) -->
+<header class="w-full bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-40 shadow-sm">
+<div class="max-w-7xl mx-auto px-margin flex items-center justify-between h-16">
+<!-- Brand Logo / Product Name -->
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+<div>
+<a class="text-title-lg font-title-lg font-bold text-primary block leading-tight" href="#">
+            ระบบประเมินโครงการฝึกอบรม
+          </a>
+<span class="text-[11px] font-label-sm text-outline tracking-wider uppercase block">Training Evaluation System</span>
+</div>
+</div>
+<!-- Navigation Links (Active State Determination: "แดชบอร์ดสรุปผลรายงาน" is active) -->
+<nav class="hidden md:flex items-center gap-space-lg h-full">
+<a class="text-on-surface-variant hover:text-primary font-body-md py-4 transition-colors flex items-center gap-space-xs" href="#">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+<span>แบบประเมินความพึงพอใจ</span>
+</a>
+<a class="border-b-2 border-primary text-primary font-title-md py-4 flex items-center gap-space-xs" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span>แดชบอร์ดสรุปผลรายงาน</span>
+</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-sm">
+<!-- Print Quick Action -->
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-lg transition-colors border border-outline-variant flex items-center gap-1" onclick="window.print()" title="พิมพ์รายงานสรุปผล">
+<span class="material-symbols-outlined text-[20px]">print</span>
+<span class="text-label-md font-label-md hidden sm:inline">พิมพ์รายงาน</span>
+</button>
+<!-- Secondary Action: บันทึกแบบร่าง -->
+<button class="hidden lg:flex items-center gap-space-xs px-3 py-2 border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low text-label-md font-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+<span>บันทึกแบบร่าง</span>
+</button>
+<!-- Primary Action: ส่งออกรายงาน PDF/Excel -->
+<div class="relative group">
+<button class="bg-primary hover:bg-[#1E40AF] text-on-primary px-4 py-2 rounded-lg text-label-md font-label-md flex items-center gap-space-xs shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>ส่งออกรายงาน PDF/Excel</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+<!-- Trailing System Icons -->
+<div class="flex items-center border-l border-outline-variant pl-space-sm ml-space-xs gap-1">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="การแจ้งเตือน">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-lg transition-colors" title="ศูนย์ช่วยเหลือ">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<!-- User Profile Avatar -->
+<div class="ml-2 flex items-center gap-2 pl-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center text-primary font-bold text-label-md" title="รูปประจำตัวผู้ใช้งานระบบและผู้ดูแลโครงการ">
+              สก
+            </div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Layout Area -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-margin py-space-lg flex flex-col gap-space-xl">
+<!-- Project Header Banner (Administrative Record Meta) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<!-- Top Row: Department Breadcrumb & Processing Status Badge -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div class="flex items-center gap-space-xs text-outline text-label-sm font-label-sm uppercase tracking-wide">
+<span class="material-symbols-outlined text-[16px]">account_balance</span>
+<span>สังกัด: กองยุทธศาสตร์และพัฒนาทรัพยากรบุคคล</span>
+<span class="mx-1">•</span>
+<span>รหัสโครงการ: PRJ-2567-TR048</span>
+</div>
+<div class="flex items-center gap-2">
+<!-- Status Badge -->
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488] border border-[#0D9488]/20">
+<span class="w-2 h-2 rounded-full bg-[#0D9488] animate-pulse"></span>
+            ประมวลผลเสร็จสิ้น (100% Complete)
+          </span>
+<!-- Cohort / Round Filter Dropdown -->
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface text-label-sm font-label-sm">
+<span class="text-outline">เลือกรุ่น:</span>
+<select class="bg-transparent border-none p-0 pr-6 text-on-surface text-label-sm font-label-sm focus:ring-0 cursor-pointer">
+<option selected="">รุ่นที่ 1 (15-17 พ.ค. 2567)</option>
+<option>รุ่นที่ 2 (22-24 พ.ค. 2567)</option>
+<option>รวมทุกรุ่น (ภาพรวมโครงการ)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Main Project Title & Context -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="space-y-1">
+<h1 class="text-headline-md font-headline-md text-primary font-bold tracking-tight">
+            รายงานผลการประเมินความพึงพอใจ: โครงการพัฒนาทักษะดิจิทัลและการบริหารจัดการภาครัฐสู่ยุคปัญญาประดิษฐ์
+          </h1>
+<p class="text-on-surface-variant text-body-md font-body-md">
+            สรุปและวิเคราะห์ผลข้อมูลประเมินผลสัมฤทธิ์ตามเกณฑ์ 5 ด้าน และตัวชี้วัดความคุ้มค่าการใช้งบประมาณรายจ่ายประจำปี
+          </p>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="px-3 py-2 border border-outline-variant hover:bg-surface-container-low text-primary rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>ตัวกรองระดับลึก</span>
+</button>
+<button class="px-3.5 py-2 bg-primary hover:bg-[#1E40AF] text-on-primary rounded-lg text-label-md font-label-md flex items-center gap-1.5 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>ลงนามรับรองผลสรุป</span>
+</button>
+</div>
+</div>
+<!-- Metadata Strip (Date, Venue, Modality, Instructors) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md pt-space-xs text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">calendar_month</span>
+<span><strong>ระยะเวลาจัด:</strong> 15 - 17 พฤษภาคม 2567 (3 วัน)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">pin_drop</span>
+<span><strong>สถานที่:</strong> ห้องประชุมจิตรลดา โรงแรมเซ็นทารา แกรนด์</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">co_present</span>
+<span><strong>วิทยากรหลัก:</strong> ดร.ธีรพงศ์ อนันตโภคิน และคณะ</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">groups_3</span>
+<span><strong>กลุ่มเป้าหมาย:</strong> ข้าราชการระดับชำนาญการขึ้นไป</span>
+</div>
+</div>
+</section>
+<!-- KPI Summary Cards (4 Metric Cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1: Response Count & Rate -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">จำนวนผู้ตอบแบบประเมิน</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface leading-none">148</span>
+<span class="text-body-md font-body-md text-outline">/ 150 คน</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">เป้าหมายขั้นต่ำ: 120 คน (80%)</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/50 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-label-sm font-label-sm bg-[#CCFBF1] text-[#0F766E]">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            98.67% Response Rate
+          </span>
+<span class="text-[11px] font-label-sm text-outline">กลุ่มตัวอย่างสมบูรณ์</span>
+</div>
+</div>
+<!-- Card 2: Overall Mean Score -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">คะแนนความพึงพอใจเฉลี่ยรวม</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-primary leading-none">4.68</span>
+<span class="text-body-md font-body-md text-outline">/ 5.00</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">เทียบเท่า 93.60% (เกณฑ์ดีเลิศ)</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/50 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            พึงพอใจมากที่สุด
+          </span>
+<span class="text-[11px] font-label-sm text-outline">S.D. = 0.42</span>
+</div>
+</div>
+<!-- Card 3: Effectiveness / ROI Index -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">ดัชนีผลสัมฤทธิ์นำไปใช้งาน (ROI)</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]">psychology_alt</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface leading-none">96.4%</span>
+<span class="text-body-md font-body-md text-[#0D9488] font-medium">+11.4% vs KPI</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">ผู้เข้าอบรมสามารถนำทักษะไปใช้ปฏิบัติงานได้จริง</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/50 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-label-sm font-label-sm bg-[#EFF6FF] text-[#1D4ED8]">
+<span class="material-symbols-outlined text-[14px]">task_alt</span>
+            ผ่านเกณฑ์มาตรฐาน ก.พ.ร.
+          </span>
+<span class="text-[11px] font-label-sm text-outline">143 / 148 คน</span>
+</div>
+</div>
+<!-- Card 4: Continuation Demand Rate -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline uppercase tracking-wider">อัตราต้องการให้จัดต่อเนื่อง</span>
+<div class="p-1.5 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]">repeat</span>
+</div>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="text-[32px] font-bold text-on-surface leading-none">97.3%</span>
+<span class="text-body-md font-body-md text-outline">144 จาก 148 คน</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">เสนอให้เปิดหลักสูตรขั้นสูงในงวดถัดไป</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/50 flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-label-sm font-label-sm bg-[#CCFBF1] text-[#0F766E]">
+<span class="material-symbols-outlined text-[14px]">thumb_up</span>
+            ระดับความต้องการสูงมาก
+          </span>
+<span class="text-[11px] font-label-sm text-outline">เสนอตั้งงบปี 2568</span>
+</div>
+</div>
+</section>
+<!-- SECTION 1: วิเคราะห์เปรียบเทียบคะแนนรายด้าน (ทั้ง 5 มิติหลัก) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-space-md border-b border-outline-variant gap-2">
+<div>
+<h2 class="text-title-lg font-title-lg text-primary font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">bar_chart</span>
+            การวิเคราะห์ผลคะแนนความพึงพอใจจำแนกตามรายด้าน (5 มิติหลัก)
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+            เกณฑ์การแปลผล: 4.51–5.00 = พึงพอใจมากที่สุด | 3.51–4.50 = พึงพอใจมาก | 2.51–3.50 = พึงพอใจปานกลาง
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-outline">มาตรฐานเป้าหมายราชการ: 4.00</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-space-md mt-space-md">
+<!-- Dimension 1: ด้านเนื้อหาและหลักสูตรการฝึกอบรม -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-surface hover:border-primary/40 transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm mb-1">
+<span>มิติที่ 1 (ข้อ 1-4)</span>
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-3">
+              ด้านเนื้อหาและหลักสูตร
+            </h3>
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-[28px] font-bold text-primary leading-tight">4.62</span>
+<span class="text-body-sm text-outline font-normal">/ 5.00</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-[#0D9488] h-full rounded-full" style="width: 92.4%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<span class="text-label-sm font-label-sm text-[#0D9488] font-semibold">พึงพอใจมากที่สุด</span>
+<span class="text-label-sm text-outline">92.4%</span>
+</div>
+</div>
+<!-- Dimension 2: ด้านวิทยากร (จุดเด่นอันดับ 1) -->
+<div class="p-space-md rounded-lg border-2 border-primary/30 bg-surface-container-low/40 relative shadow-sm flex flex-col justify-between">
+<span class="absolute -top-3 right-3 bg-primary text-on-primary text-[10px] font-label-sm px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            อันดับที่ 1
+          </span>
+<div>
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm mb-1">
+<span>มิติที่ 2 (ข้อ 5-8)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">record_voice_over</span>
+</div>
+<h3 class="text-title-md font-title-md text-primary font-bold mb-3">
+              ด้านวิทยากร
+            </h3>
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-[28px] font-bold text-primary leading-tight">4.81</span>
+<span class="text-body-sm text-outline font-normal">/ 5.00</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-primary h-full rounded-full" style="width: 96.2%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<span class="text-label-sm font-label-sm text-primary font-bold">พึงพอใจมากที่สุด</span>
+<span class="text-label-sm text-primary font-bold">96.2%</span>
+</div>
+</div>
+<!-- Dimension 3: ด้านการจัดโครงการ -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-surface hover:border-primary/40 transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm mb-1">
+<span>มิติที่ 3 (ข้อ 9-12)</span>
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-3">
+              ด้านการจัดโครงการ
+            </h3>
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-[28px] font-bold text-primary leading-tight">4.58</span>
+<span class="text-body-sm text-outline font-normal">/ 5.00</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-[#0D9488] h-full rounded-full" style="width: 91.6%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<span class="text-label-sm font-label-sm text-[#0D9488] font-semibold">พึงพอใจมากที่สุด</span>
+<span class="text-label-sm text-outline">91.6%</span>
+</div>
+</div>
+<!-- Dimension 4: ด้านสถานที่และสิ่งอำนวยความสะดวก -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-surface hover:border-primary/40 transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm mb-1">
+<span>มิติที่ 4 (ข้อ 13-15)</span>
+<span class="material-symbols-outlined text-[18px]">meeting_room</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-3">
+              ด้านสถานที่และบริการ
+            </h3>
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-[28px] font-bold text-primary leading-tight">4.65</span>
+<span class="text-body-sm text-outline font-normal">/ 5.00</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-[#0D9488] h-full rounded-full" style="width: 93.0%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<span class="text-label-sm font-label-sm text-[#0D9488] font-semibold">พึงพอใจมากที่สุด</span>
+<span class="text-label-sm text-outline">93.0%</span>
+</div>
+</div>
+<!-- Dimension 5: ด้านผลสัมฤทธิ์และความคุ้มค่า -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-surface hover:border-primary/40 transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between text-outline text-label-sm font-label-sm mb-1">
+<span>มิติที่ 5 (ข้อ 16-20)</span>
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</div>
+<h3 class="text-title-md font-title-md text-on-surface font-semibold mb-3">
+              ด้านผลสัมฤทธิ์และความคุ้มค่า
+            </h3>
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-[28px] font-bold text-primary leading-tight">4.74</span>
+<span class="text-body-sm text-outline font-normal">/ 5.00</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden mb-2">
+<div class="bg-[#0D9488] h-full rounded-full" style="width: 94.8%;"></div>
+</div>
+</div>
+<div class="pt-2 border-t border-outline-variant/40 flex items-center justify-between text-body-sm">
+<span class="text-label-sm font-label-sm text-[#0D9488] font-semibold">พึงพอใจมากที่สุด</span>
+<span class="text-label-sm text-outline">94.8%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: ตารางแจกแจงสถิติคะแนนรายข้อทั้ง 20 ข้ออย่างละเอียด -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<!-- Table Header Bar -->
+<div class="p-space-lg border-b border-outline-variant flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-container-lowest">
+<div>
+<h2 class="text-title-lg font-title-lg text-primary font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">table_chart</span>
+            ตารางแสดงค่าสถิติแจกแจงรายข้อความพึงพอใจครบทั้ง 20 รายการ
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+            จำแนกตามโครงสร้างแบบประเมิน 5 ด้าน (กลุ่มประชากรผู้ตอบแบบประเมิน N = 148 คน)
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative">
+<input class="text-body-sm font-body-sm rounded-lg border border-outline-variant pl-8 pr-3 py-1.5 focus:border-secondary focus:ring-1 focus:ring-secondary" placeholder="ค้นหาข้อประเมิน..." type="text"/>
+<span class="material-symbols-outlined absolute left-2 top-2 text-[18px] text-outline">search</span>
+</div>
+<button class="px-3 py-1.5 border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+<span>เรียงตามคะแนน</span>
+</button>
+</div>
+</div>
+<!-- Data Table Responsive Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b-2 border-outline-variant text-on-surface-variant text-label-sm font-label-sm uppercase">
+<th class="py-3 px-4 w-16 text-center" scope="col">ลำดับ</th>
+<th class="py-3 px-4" scope="col">รายการประเมิน (Assessment Items)</th>
+<th class="py-3 px-4 w-28 text-right" scope="col">คะแนนเฉลี่ย (x̄)</th>
+<th class="py-3 px-4 w-28 text-right" scope="col">ส่วนเบี่ยงเบน (S.D.)</th>
+<th class="py-3 px-4 w-28 text-right" scope="col">ร้อยละ (%)</th>
+<th class="py-3 px-4 w-44 text-center" scope="col">การแปลผลระดับคุณภาพ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 text-body-md font-body-md">
+<!-- Group 1: ด้านเนื้อหาและหลักสูตรการฝึกอบรม (ข้อ 1-4) -->
+<tr class="bg-surface-container-low/60 font-semibold text-primary">
+<td class="py-2.5 px-4 text-title-md font-title-md" colspan="6">
+                1. ด้านเนื้อหาและหลักสูตรการฝึกอบรม (คะแนนเฉลี่ยด้าน: 4.62 | S.D. 0.44 | 92.40% | พึงพอใจมากที่สุด)
+              </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">1</td>
+<td class="py-2.5 px-4 text-on-surface">เนื้อหาวิชาตรงตามวัตถุประสงค์และเป้าหมายของโครงการ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.68</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.42</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">93.6%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">2</td>
+<td class="py-2.5 px-4 text-on-surface">เนื้อหามีความทันสมัย สอดคล้องกับบริบทเทคโนโลยีและปัญญาประดิษฐ์</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.71</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.39</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">94.2%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">3</td>
+<td class="py-2.5 px-4 text-on-surface">เนื้อหาสามารถนำไปประยุกต์ใช้ในการปฏิบัติงานราชการได้จริง</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.59</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.47</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">91.8%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">4</td>
+<td class="py-2.5 px-4 text-on-surface">การจัดสรรระยะเวลาในการอบรมแต่ละหัวข้อมีความเหมาะสม</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.50</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.49</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">90.0%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#EFF6FF] text-[#1D4ED8]">พึงพอใจมาก</span>
+</td>
+</tr>
+<!-- Group 2: ด้านวิทยากร (ข้อ 5-8) -->
+<tr class="bg-surface-container-low/60 font-semibold text-primary">
+<td class="py-2.5 px-4 text-title-md font-title-md" colspan="6">
+                2. ด้านวิทยากร (คะแนนเฉลี่ยด้าน: 4.81 | S.D. 0.38 | 96.20% | พึงพอใจมากที่สุด - จุดเด่นอันดับ 1)
+              </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">5</td>
+<td class="py-2.5 px-4 text-on-surface">วิทยากรมีความรู้ความเชี่ยวชาญและความน่าเชื่อถือในหัวข้อที่บรรยาย</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.88</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.31</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">97.6%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">6</td>
+<td class="py-2.5 px-4 text-on-surface">ความสามารถและเทคนิคการถ่ายทอดให้เข้าใจง่าย ชัดเจน น่าติดตาม</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.82</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.37</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">96.4%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">7</td>
+<td class="py-2.5 px-4 text-on-surface">การเปิดโอกาสให้ซักถาม แลกเปลี่ยนความคิดเห็น และให้คำแนะนำ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.76</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.41</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">95.2%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">8</td>
+<td class="py-2.5 px-4 text-on-surface">การใช้สื่อ นวัตกรรมตัวอย่าง และเทคนิคการสอนเชิงปฏิบัติการ (Workshop)</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.78</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.42</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">95.6%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<!-- Group 3: ด้านการจัดโครงการ (ข้อ 9-12) -->
+<tr class="bg-surface-container-low/60 font-semibold text-primary">
+<td class="py-2.5 px-4 text-title-md font-title-md" colspan="6">
+                3. ด้านการจัดโครงการ (คะแนนเฉลี่ยด้าน: 4.58 | S.D. 0.46 | 91.60% | พึงพอใจมากที่สุด)
+              </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">9</td>
+<td class="py-2.5 px-4 text-on-surface">การประชาสัมพันธ์และการแจ้งข้อมูลข่าวสารโครงการล่วงหน้าอย่างชัดเจน</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.60</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.46</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">92.0%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">10</td>
+<td class="py-2.5 px-4 text-on-surface">ขั้นตอนการลงทะเบียนและการอำนวยความสะดวกของเจ้าหน้าที่ผู้จัด</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.64</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.44</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">92.8%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">11</td>
+<td class="py-2.5 px-4 text-on-surface">การดำเนินโครงการเป็นไปตามลำดับขั้นตอนและเวลาที่กำหนดอย่างเป็นระบบ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.52</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.48</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">90.4%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">12</td>
+<td class="py-2.5 px-4 text-on-surface">เอกสารประกอบการฝึกอบรม (ทั้งไฟล์ดิจิทัลและคู่มือ) มีประโยชน์ครบถ้วน</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.56</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.45</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">91.2%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<!-- Group 4: ด้านสถานที่และสิ่งอำนวยความสะดวก (ข้อ 13-15) -->
+<tr class="bg-surface-container-low/60 font-semibold text-primary">
+<td class="py-2.5 px-4 text-title-md font-title-md" colspan="6">
+                4. ด้านสถานที่และสิ่งอำนวยความสะดวก (คะแนนเฉลี่ยด้าน: 4.65 | S.D. 0.43 | 93.00% | พึงพอใจมากที่สุด)
+              </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">13</td>
+<td class="py-2.5 px-4 text-on-surface">ความเหมาะสมของห้องอบรม ขนาดพื้นที่ บรรยากาศ แสงสว่าง และการเดินทาง</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.62</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.45</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">92.4%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">14</td>
+<td class="py-2.5 px-4 text-on-surface">ความพร้อมของอุปกรณ์โสตทัศนูปกรณ์ สัญญาณอินเทอร์เน็ตความเร็วสูง และปลั๊กไฟ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.67</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.42</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">93.4%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">15</td>
+<td class="py-2.5 px-4 text-on-surface">คุณภาพอาหาร อาหารว่าง เครื่องดื่ม และความสะอาดของจุดบริการ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.66</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.43</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">93.2%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<!-- Group 5: ด้านผลสัมฤทธิ์และความคุ้มค่า (ข้อ 16-20) -->
+<tr class="bg-surface-container-low/60 font-semibold text-primary">
+<td class="py-2.5 px-4 text-title-md font-title-md" colspan="6">
+                5. ด้านผลสัมฤทธิ์และความคุ้มค่า (คะแนนเฉลี่ยด้าน: 4.74 | S.D. 0.39 | 94.80% | พึงพอใจมากที่สุด)
+              </td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">16</td>
+<td class="py-2.5 px-4 text-on-surface">ได้รับความรู้ความเข้าใจและทักษะดิจิทัลเพิ่มขึ้นจากเดิมอย่างชัดเจน</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.75</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.38</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">95.0%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">17</td>
+<td class="py-2.5 px-4 text-on-surface">มีความมั่นใจในการนำเครื่องมือและปัญญาประดิษฐ์ไปปรับปรุงงานในหน่วยงาน</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.72</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.40</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">94.4%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">18</td>
+<td class="py-2.5 px-4 text-on-surface">การอบรมครั้งนี้บรรลุตามวัตถุประสงค์และตัวชี้วัดที่กำหนดไว้ในโครงการ</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.76</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.37</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">95.2%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">19</td>
+<td class="py-2.5 px-4 text-on-surface">ระดับความพึงพอใจในภาพรวมต่อการเข้าร่วมโครงการฝึกอบรมครั้งนี้</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.78</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.36</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">95.6%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="py-2.5 px-4 text-center text-outline font-medium">20</td>
+<td class="py-2.5 px-4 text-on-surface">โครงการนี้มีประโยชน์ต่อการพัฒนาองค์กรและเห็นควรให้จัดต่อเนื่องในรุ่นต่อไป</td>
+<td class="py-2.5 px-4 text-right font-semibold text-on-surface tabular-nums">4.70</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">0.43</td>
+<td class="py-2.5 px-4 text-right text-on-surface-variant tabular-nums">94.0%</td>
+<td class="py-2.5 px-4 text-center">
+<span class="inline-block px-2.5 py-0.5 rounded text-label-sm font-label-sm bg-[#E6FFFA] text-[#0D9488]">พึงพอใจมากที่สุด</span>
+</td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container font-semibold text-primary border-t-2 border-outline-variant">
+<tr>
+<td class="py-3 px-4 text-right text-title-md font-title-md" colspan="2">
+                คะแนนเฉลี่ยรวมทุกด้าน (Total Composite Mean) :
+              </td>
+<td class="py-3 px-4 text-right text-headline-sm font-headline-sm tabular-nums text-primary font-bold">
+                4.68
+              </td>
+<td class="py-3 px-4 text-right tabular-nums text-on-surface-variant">
+                0.42
+              </td>
+<td class="py-3 px-4 text-right tabular-nums text-primary font-bold">
+                93.6%
+              </td>
+<td class="py-3 px-4 text-center">
+<span class="inline-block px-3 py-1 rounded-lg text-label-sm font-label-sm bg-primary text-on-primary">
+                  พึงพอใจมากที่สุด
+                </span>
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<!-- Table Footnote -->
+<div class="px-space-lg py-space-sm bg-surface text-outline text-[12px] flex flex-wrap items-center justify-between border-t border-outline-variant">
+<span>หมายเหตุ: คำนวณตามสูตรทางสถิติการวิจัยประเมินผลโครงการภาครัฐ สเกลวัด 5 ระดับของลิเคิร์ต (Likert Scale)</span>
+<span>ความเชื่อมั่นเครื่องมือแบบสอบถาม (Cronbach's Alpha) = 0.942</span>
+</div>
+</section>
+<!-- SECTION 3: สรุปข้อเสนอแนะเชิงคุณภาพ (Qualitative Feedback Bento Grid) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-md border-b border-outline-variant">
+<div>
+<h2 class="text-title-lg font-title-lg text-primary font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">format_quote</span>
+            สรุปข้อเสนอแนะเชิงคุณภาพและเสียงสะท้อน (Qualitative Feedback Summary)
+          </h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+            สกัดประเด็นสำคัญจากส่วนที่ 3 ของแบบประเมิน (ข้อคิดเห็นปลายเปิด N = 112 ข้อความ)
+          </p>
+</div>
+<span class="text-label-sm font-label-sm px-2.5 py-1 rounded bg-surface-container text-primary border border-outline-variant">
+          อัตราการเขียนเสนอแนะ 75.6%
+        </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-space-md">
+<!-- Bento Tile 1: จุดเด่นและสิ่งที่ประทับใจ -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-[#F0FDF4]/50 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-[#166534] font-title-md font-bold mb-3">
+<span class="material-symbols-outlined text-[20px] text-[#16a34a]">thumb_up</span>
+<span>1. สิ่งที่ประทับใจ / จุดเด่นของโครงการ (Top Strengths)</span>
+</div>
+<ul class="space-y-2.5 text-body-md text-on-surface">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#16a34a] mt-1">check_circle</span>
+<span><strong>วิทยากรและทีมผู้ช่วย:</strong> ถ่ายทอดเรื่อง AI และเทคโนโลยียาก ๆ ให้เข้าใจได้ง่าย อธิบายเป็นขั้นตอน และมีตัวอย่างเคสหน่วยงานรัฐที่ใกล้ตัวมาก</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#16a34a] mt-1">check_circle</span>
+<span><strong>การจัด Workshop:</strong> ได้ทดลองเขียน Prompt และสร้าง Flow การสรุปเอกสารราชการจริง ทำให้เห็นภาพว่านำไปต่อยอดใช้ในงานประจำได้ทันที</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#16a34a] mt-1">check_circle</span>
+<span><strong>เอกสารและสื่อแจก:</strong> มี Cheat sheet สรุปคำสั่ง และ Template เอกสารดิจิทัลให้ดาวน์โหลดกลับไปใช้ที่สำนักงานได้ดีมาก</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#166534]/10 text-label-sm text-[#166534] flex justify-between">
+<span>จำนวนผู้ตอบชื่นชมวิทยากร: 92 ข้อความ</span>
+<span class="font-semibold">ความถี่ 82.1%</span>
+</div>
+</div>
+<!-- Bento Tile 2: สิ่งที่ควรปรับปรุงในครั้งต่อไป -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-[#FEF2F2]/50 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-[#991B1B] font-title-md font-bold mb-3">
+<span class="material-symbols-outlined text-[20px] text-[#dc2626]">build</span>
+<span>2. สิ่งที่ควรปรับปรุงในครั้งต่อไป (Areas for Improvement)</span>
+</div>
+<ul class="space-y-2.5 text-body-md text-on-surface">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#dc2626] mt-1">priority_high</span>
+<span><strong>การขยายเวลาฝึกปฏิบัติ:</strong> อยากให้เพิ่มชั่วโมงฝึก Hands-on มากกว่านี้ เนื่องจากเนื้อหา AI กว้างมาก และผู้เข้าร่วมบางท่านพิมพ์ตามไม่ทัน</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#dc2626] mt-1">priority_high</span>
+<span><strong>อุณหภูมิห้องฝึกอบรม:</strong> เครื่องปรับอากาศในห้องประชุมช่วงบ่ายมีอากาศค่อนข้างเย็นเกินไปในบางโซนที่นั่งด้านหน้า</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#dc2626] mt-1">priority_high</span>
+<span><strong>การคัดแยกกลุ่มพื้นฐาน:</strong> ควรมีการแบ่งห้องสำหรับกลุ่มผู้ที่ไม่มีพื้นฐานคอมพิวเตอร์เลย เพื่อให้การดำเนินเนื้อหารวดเร็วขึ้น</span>
+</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-[#991B1B]/10 text-label-sm text-[#991B1B] flex justify-between">
+<span>ประเด็นเวลาฝึกปฏิบัติ: 48 ข้อความ</span>
+<span class="font-semibold">ความถี่ 42.8%</span>
+</div>
+</div>
+<!-- Bento Tile 3: หัวข้อที่สนใจในอนาคต -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-[#EFF6FF]/60 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-primary font-title-md font-bold mb-3">
+<span class="material-symbols-outlined text-[20px] text-primary">lightbulb</span>
+<span>3. หัวข้อการฝึกอบรมที่สนใจในอนาคต (Future Topics Demand)</span>
+</div>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-label-sm font-label-sm text-primary flex items-center gap-1 shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Advanced Data Analytics สำหรับนักบริหารภาครัฐ (64 คน)
+              </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-label-sm font-label-sm text-primary flex items-center gap-1 shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Generative AI Prompt Engineering เชิงลึกในงานวิเคราะห์กฎหมาย (51 คน)
+              </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-label-sm font-label-sm text-primary flex items-center gap-1 shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                การจัดทำ Dashboard ด้วย Power BI/Looker Studio (46 คน)
+              </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-lowest border border-outline-variant text-label-sm font-label-sm text-primary flex items-center gap-1 shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                ความมั่นคงปลอดภัยไซเบอร์และการคุ้มครองข้อมูลส่วนบุคคล (PDPA) (39 คน)
+              </span>
+</div>
+</div>
+<div class="mt-4 pt-2 border-t border-primary/10 text-label-sm text-primary flex justify-between">
+<span>หัวข้อที่ต้องการอันดับ 1: Big Data &amp; AI Policy</span>
+<span class="font-semibold">57.1% Demand</span>
+</div>
+</div>
+<!-- Bento Tile 4: ข้อเสนอแนะอื่น ๆ และคำขอบคุณ -->
+<div class="p-space-md rounded-lg border border-outline-variant bg-surface flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 text-on-surface font-title-md font-bold mb-3">
+<span class="material-symbols-outlined text-[20px] text-primary">forum</span>
+<span>4. ข้อเสนอแนะอื่น ๆ และภาพรวม (General Comments)</span>
+</div>
+<div class="space-y-2 text-body-sm text-on-surface-variant italic">
+<p class="p-2.5 rounded bg-surface-container-lowest border border-outline-variant/60">
+                "ขอขอบคุณคณะผู้จัดงานและวิทยากรทุกท่าน การจัดโครงการนี้ตอบโจทย์การยกระดับประสิทธิภาพหน่วยงานเป็นอย่างยิ่ง อยากให้หลักสูตรนี้จัดให้กับผู้บริหารระดับกองและสำนักทุกคน"
+              </p>
+<p class="p-2.5 rounded bg-surface-container-lowest border border-outline-variant/60">
+                "อาหารอร่อย เจ้าหน้าที่ให้คำแนะนำสุภาพเรียบร้อย ได้เครือข่ายเพื่อนร่วมงานข้ามกระทรวงเพิ่มขึ้นมาก"
+              </p>
+</div>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant/50 text-label-sm text-outline flex justify-between">
+<span>เสียงตอบรับในเชิงบวกโดยรวม: 96.4%</span>
+<span class="font-semibold text-[#0D9488]">คะแนน Net Promoter Score: +84</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Administrative Action Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-space-md shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<a class="px-4 py-2 border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-2 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>กลับไปยังหน้าแบบประเมิน</span>
+</a>
+<span class="text-body-sm text-outline hidden md:inline">| รหัสฟอร์ม: F-EV-2567-01</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="px-4 py-2 border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low text-label-md font-label-md flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">table_view</span>
+<span>ดาวน์โหลดข้อมูลดิบ Excel (.xlsx)</span>
+</button>
+<button class="px-5 py-2 bg-primary hover:bg-[#1E40AF] text-on-primary rounded-lg text-label-md font-label-md flex items-center gap-2 shadow-sm transition-colors" onclick="window.print()">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>ส่งออกรายงานสรุป PDF ฉบับสมบูรณ์</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Institutional Footer (Shared Component from JSON) -->
+<footer class="w-full border-t border-outline-variant bg-surface-container text-on-surface-variant mt-space-xl">
+<div class="max-w-7xl mx-auto px-margin py-space-lg flex flex-col md:flex-row justify-between items-center gap-space-md">
+<!-- Institutional Copyright & Brand -->
+<div class="space-y-1 text-center md:text-left">
+<div class="text-label-lg font-label-lg font-bold text-on-surface">
+          ระบบประเมินโครงการฝึกอบรม | Training Evaluation System
+        </div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">
+          © 2567 สถาบันพัฒนาและฝึกอบรมบุคลากรภาครัฐและองค์กร. สงวนลิขสิทธิ์ตามกฎหมาย.
+        </p>
+</div>
+<!-- Footer Policy & Compliance Links -->
+<nav class="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-body-sm font-body-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
+          คู่มือการใช้งานระบบ
+        </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
+          เกณฑ์การวัดผล 5 ด้าน
+        </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
+          ติดต่อผู้ดูแลระบบ
+        </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">
+          นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)
+        </a>
+</nav>
+</div>
+</footer>
+</body></html>
