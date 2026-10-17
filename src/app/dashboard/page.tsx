@@ -232,22 +232,6 @@ export default function DashboardPage() {
         {/* Title & Actions */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
-            {questionnaires.length > 1 && (
-              <div className="flex items-center gap-2 mb-2 no-print">
-                <span className="text-xs font-semibold text-outline">เลือกแบบสอบถาม:</span>
-                <select
-                  value={selectedQnrId || currentProject.id}
-                  onChange={(e) => handleSelectQuestionnaire(e.target.value)}
-                  className="text-xs border border-outline-variant bg-surface rounded-lg px-2.5 py-1 text-on-surface font-medium focus:outline-none focus:border-primary max-w-sm truncate"
-                >
-                  {questionnaires.map((q) => (
-                    <option key={q.id} value={q.id}>
-                      {q.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
             <h1 className="text-xl sm:text-2xl font-bold text-primary tracking-tight">
               {currentProject.title || DEFAULT_PROJECT.title}
             </h1>
